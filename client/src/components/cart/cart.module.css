@@ -1,0 +1,165 @@
+.cartWrapper {
+  background-color: #fff;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: space-between;
+  min-height: 300px;
+}
+
+.cartWrapperEmpty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.invoiceDetailWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.invoiceDetailTitle {
+  font-size: 0.9rem;
+  color: #848484;
+  margin: 0;
+  margin-bottom: 14px;
+}
+
+.invoiceDetailAmount {
+  font-size: 0.9rem;
+  color: #333;
+  margin: 0;
+  margin-bottom: 14px;
+}
+
+.totalPriceWrapper {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #848484;
+}
+
+.totalPriceTitle {
+  padding-top: 14px;
+  font-size: 1.1rem;
+  margin-top: 0;
+  font-weight: 600;
+  color: #595959;
+}
+
+.totalPriceAmount {
+  padding-top: 14px;
+  font-size: 1.1rem;
+  margin-top: 0;
+  font-weight: 600;
+  color: #000;
+}
+
+.discountWrapper {
+  display: flex;
+}
+
+.discountDifference {
+  text-align: right;
+}
+
+.discountTextField {
+  width: 120px;
+}
+
+.discountTextField :global(.MuiOutlinedInput-notchedOutline) {
+  border: 1px solid #c0c0c0;
+  border-right: none;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.discountTextField :global(.MuiOutlinedInput-root:hover fieldset),
+.discountTextField :global(.MuiOutlinedInput-root.Mui-focused fieldset) {
+  border: 1px solid #c0c0c0;
+  border-right: none;
+}
+
+.commentTextField :global(.MuiOutlinedInput-notchedOutline),
+.commentTextField :global(.MuiOutlinedInput-root:hover fieldset),
+.commentTextField :global(.MuiOutlinedInput-root.Mui-focused fieldset) {
+  border: 1px solid #c0c0c0;
+}
+
+.discountTextField :global(.MuiInputBase-root) {
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.discountTextField :global(.MuiOutlinedInput-input) {
+  padding: 6px;
+}
+
+input::placeholder {
+  font-size: 0.8rem;
+}
+
+.discountContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 38px;
+}
+
+.applyDiscountBtn {
+  border: none;
+  background-color: #9b9b9b;
+  color: #fff;
+  cursor: pointer;
+  width: 42px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  transition: background-color 0.3s ease;
+}
+
+.discountTag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 78px;
+  height: 26px;
+  background-color: #de8e75;
+  color: #fff;
+  padding: 4px;
+  margin-top: 12px;
+  border-radius: 4px;
+}
+
+.removeDiscountBtn {
+  background-color: transparent;
+  border: none;
+  font-size: 1.4rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.commentLabel {
+  text-align: left;
+  margin-bottom: 6px;
+  margin-top: 32px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.saveBtn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #5384c1;
+  color: #fff;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.saveBtn:hover {
+  background-color: #335c8e;
+}

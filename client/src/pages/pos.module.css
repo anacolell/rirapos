@@ -1,0 +1,38 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  /* font-family: 'EB Garamond', serif; */
+  /* font-family: "Montserrat", sans-serif; */
+  font-family: "Roboto", sans-serif;
+}
+
+.pageWrapper {
+  padding: 20px 60px 75px;
+  /* background-color: #eee7e1; */
+  background-color: #f6f6f6;
+}
+
+.productsListWrapper {
+  background-color: #fff;
+  background-color: #f6f6f6;
+  padding-right: 8px;
+  padding-bottom: 8px;
+}
+
+.cartWrapper {
+  padding-top: 8px;
+}
+
+.posWrapper {
+  /* padding: 48px; */
+}
+
+/* .winesWrapper {
+  width: 60%;
+}
+
+.cartWrapper {
+  width: 40%;
+} */

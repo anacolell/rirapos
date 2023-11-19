@@ -1,0 +1,105 @@
+import { Grid } from "@mui/material";
+import styles from "./wineBox.module.css";
+import { useCart } from "../../context/cartContext";
+import { Package } from "react-feather";
+
+interface Wine {
+  id: string;
+  title: string;
+  img?: string;
+  year: string;
+  price: number;
+  type: string;
+  quantity?: number;
+  isWineInBox?: boolean;
+}
+
+export default function WineBox({ wine }: { wine: Wine }) {
+  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity } =
+    useCart();
+
+  const quantity = getItemQuantity(wine.id);
+
+  let wineType;
+
+  if (wine.type === "red") {
+    wineType = "Ερυθρός";
+  } else if (wine.type === "white") {
+    wineType = "Λευκός";
+  } else {
+    wineType = "Ροζέ";
+  }
+
+  return (
+    <Grid item xs={6} sm={4} key={wine.id}>
+      <div
+        className={`${styles.wineBoxWrapper}
+          ${quantity > 0 && styles.wineBoxWrapperSelected}
+        `}
+      >
+        {wine.isWineInBox ? (
+          <Package
+            style={{
+              width: "auto",
+              height: "80px",
+              marginTop: "60px",
+              marginBottom: "60px",
+              fontWeight: "200",
+            }}
+          />
+        ) : (
+          <img
+            src={`/images/${wine.img}`}
+            alt={wine.title}
+            style={{ width: "auto", height: "200px" }}
+          />
+        )}
+
+        <div className={styles.wineInfoWrapper}>
+          {wine.isWineInBox ? (
+            <div>
+              <p className={styles.wineTitle}>
+                {wine.title} {!wine.isWineInBox && wine.year}
+              </p>
+              <p className={styles.wineInBoxSubTitle}>
+                {wine.quantity} Lt, {wineType}
+              </p>
+            </div>
+          ) : (
+            <p className={styles.wineTitle}>
+              {wine.title} {!wine.isWineInBox && wine.year}
+            </p>
+          )}
+          <div className={styles.priceInputWrapper}>
+            <p>{(Math.round(wine.price * 100) / 100).toFixed(2)} €</p>
+            {quantity === 0 ? (
+              <button
+                className={styles.addBtn}
+                onClick={() => increaseCartQuantity(wine.id)}
+              >
+                +
+              </button>
+            ) : (
+              <div className={styles.quantityInputWrapper}>
+                <button
+                  onClick={() => decreaseCartQuantity(wine.id)}
+                  className={styles.quantityInputBtn}
+                >
+                  -
+                </button>
+
+                <span className={styles.quantity}>{quantity}</span>
+                <button
+                  onClick={() => increaseCartQuantity(wine.id)}
+                  className={styles.quantityInputBtn}
+                >
+                  +
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </Grid>
+  );
+}

@@ -1,0 +1,64 @@
+.cartWrapper {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding-bottom: 4px;
+}
+
+.itemLeft {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.itemRight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.itemImage {
+  width: 16px;
+  height: auto;
+}
+
+.packageIcon {
+  width: 16px;
+}
+
+.itemInfoWrapper {
+  margin-left: 12px;
+}
+
+.itemTitle {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.itemPrice {
+  margin: 0;
+  color: #333;
+  font-size: 0.8rem;
+}
+
+.totalItemPriceCrossed {
+  text-decoration: line-through;
+  margin-right: 8px;
+}
+
+.itemQuantity {
+  font-size: 0.9rem;
+  color: #727272;
+  margin-left: 6px;
+}
+
+.deleteBtn {
+  margin-left: 4px;
+  border: none;
+  background-color: transparent;
+  font-size: 1.25rem;
+  cursor: pointer;
+}

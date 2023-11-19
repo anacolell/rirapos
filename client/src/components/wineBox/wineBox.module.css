@@ -1,0 +1,113 @@
+.wineBoxWrapper {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: #f3f0ec;
+  background-color: #fff;
+  border: 2px solid transparent;
+}
+
+.wineBoxWrapperSelected {
+  background-color: #dbd2cb;
+}
+
+.wineBoxWrapper:hover {
+  background-color: #dbd2cb;
+  background-color: #dce8f7;
+  border: 2px solid #82aee3;
+}
+
+.wineBoxWrapperSelected {
+  background-color: #dbd2cb;
+  background-color: #dce8f7;
+  border: 2px solid #82aee3;
+}
+
+.wineTitle {
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-align: right;
+}
+
+.wineInBoxTitleWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 117.5px;
+}
+
+.wineInBoxSubTitle {
+  margin: 0;
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+.winePrice {
+  color: #444444;
+}
+
+.wineInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.wineInBoxInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.priceInputWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.quantityInputWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.quantityInputBtn {
+  width: 26px;
+  height: 26px;
+  background-color: #759dce;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quantity {
+  background-color: #fff;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addBtn {
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background-color: #5384c1;
+  color: #fff;
+  /* transition: background-color 0.3s ease; */
+  border: none;
+  font-size: 24px;
+}
+
+/* .addBtn:hover {
+  background-color: hsl(213, 47%, 54%);
+} */
