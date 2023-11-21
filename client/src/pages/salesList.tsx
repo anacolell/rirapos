@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SaleCard from "../components/saleCard/saleCard";
 import { Grid } from "@mui/material";
 import styles from "./salesList.module.css";
-import { ArrowBackIos, BackHand } from "@mui/icons-material";
+import { ArrowBackIos } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 export default function SalesList() {
@@ -19,7 +19,7 @@ export default function SalesList() {
   return (
     <main className={styles.pageWrapper}>
       <Link className={styles.goBackWrapper} to="/">
-        <ArrowBackIos /> <p>POS</p>
+        <ArrowBackIos /> <p>Back to POS</p>
       </Link>
       <div className={styles.listWrapper}>
         <Grid container className={styles.list}>
@@ -39,7 +39,12 @@ export default function SalesList() {
           </Grid>
           {sales?.map((sale: any) => (
             <Grid item xs={12}>
-              <SaleCard sale={sale} key={sale._id} />
+              <SaleCard
+                sale={sale}
+                sales={sales}
+                setSales={setSales}
+                key={sale._id}
+              />
             </Grid>
           ))}
         </Grid>

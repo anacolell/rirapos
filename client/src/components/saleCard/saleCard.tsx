@@ -1,34 +1,21 @@
 import dayjs from "dayjs";
 import { formatPrice } from "../../utils/utils";
-import {
-  Card,
-  CardContent,
-  Grid,
-  IconButton,
-  Menu,
-  MenuItem,
-} from "@mui/material";
+import { Card, CardContent, Grid, IconButton } from "@mui/material";
 import styles from "./saleCard.module.css";
-import { Delete, MoreVert, Visibility } from "@mui/icons-material";
-import { useState } from "react";
+import { Delete, Visibility } from "@mui/icons-material";
 
-export default function SaleCard({ sale }: any) {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
+export default function SaleCard({ sale, sales, setSales }: any) {
   const handleSeeDetails = () => {
     console.log("details");
   };
 
-  const handleDelete = () => {
-    console.log("delete");
+  const handleDelete = async (saleId: string) => {
+    console.log(sale._id);
+
+    await fetch(`http://localhost:5000/sales/${saleId}`, {
+      method: "DELETE",
+    });
+    setSales(sales.filter((sale) => saleId !== sale._id));
   };
 
   let product;
@@ -72,7 +59,7 @@ export default function SaleCard({ sale }: any) {
               <Visibility />
             </IconButton>
             <IconButton>
-              <Delete />
+              <Delete onClick={() => handleDelete(sale._id)} />
             </IconButton>
           </Grid>
         </Grid>

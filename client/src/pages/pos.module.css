@@ -30,6 +30,9 @@ html {
 
 .link {
   text-decoration: none;
+  color: #333;
+  font-size: 1.1rem;
+  text-align: right;
 }
 
 /* .winesWrapper {

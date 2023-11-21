@@ -10,7 +10,15 @@ export default function Pos() {
   return (
     <main className={styles.pageWrapper}>
       <Grid container spacing={6} className={styles.posWrapper}>
-        <Grid item xs={12}>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            marginTop: "56px",
+            marginBottom: "20px",
+            textAlign: "right",
+          }}
+        >
           <Link className={styles.link} to="/sales-list">
             Sales list
           </Link>
