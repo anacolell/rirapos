@@ -1,0 +1,39 @@
+.pageWrapper {
+  padding: 100px 70px;
+  background-color: #f6f6f6;
+}
+
+.goBackWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 38px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+}
+
+.listWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.list {
+  width: 800px;
+}
+
+.tableHead {
+  padding: 12px 24px;
+  color: #333;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.tableHead p {
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .list {
+    width: 100%;
+  }
+}

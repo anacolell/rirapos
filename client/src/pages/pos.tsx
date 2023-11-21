@@ -11,7 +11,9 @@ export default function Pos() {
     <main className={styles.pageWrapper}>
       <Grid container spacing={6} className={styles.posWrapper}>
         <Grid item xs={12}>
-          <Link to="/sales-list">Sales list</Link>
+          <Link className={styles.link} to="/sales-list">
+            Sales list
+          </Link>
         </Grid>
         <Grid item xs={12} md={8}>
           <Grid container spacing={3} className={styles.productsListWrapper}>

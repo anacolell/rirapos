@@ -25,6 +25,16 @@ export default function Cart() {
     setDiscount("");
   };
 
+  const winesInCart = cartItems.map((cartItem) => {
+    const fullWineData = wines.find((wine) => wine.id === cartItem.id);
+    return {
+      ...fullWineData,
+      quantity: cartItem.quantity,
+    };
+  });
+
+  console.log(winesInCart);
+
   const sortedCartItems = cartItems.sort((a, b) => {
     const itemA = wines.find((wine) => wine.id === a.id);
     const itemB = wines.find((wine) => wine.id === b.id);
@@ -87,6 +97,27 @@ export default function Cart() {
   const handleApplyDiscount = () => {
     setDiscount(discountAmount);
     setDiscountAmount("");
+  };
+
+  const handleCreateSale = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    await fetch("http://localhost:5000/sales", {
+      method: "POST",
+      body: JSON.stringify({
+        wines: winesInCart,
+        wineTastings: wineTastings,
+        discount: discount,
+        discountDifference: discountDifference,
+        subTotal: subtotal,
+        total: total,
+        comment: comment,
+        date: new Date(),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   };
 
   return (
@@ -181,7 +212,9 @@ export default function Cart() {
                 className={styles.commentTextField}
               />
             </div>
-            <button className={styles.saveBtn}>Αποθήκευση πώλησης</button>
+            <button onClick={handleCreateSale} className={styles.saveBtn}>
+              Αποθήκευση πώλησης
+            </button>
           </Grid>
         </>
       )}

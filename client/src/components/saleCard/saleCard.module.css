@@ -1,0 +1,35 @@
+.transactionCard {
+  border-radius: 14px;
+  margin-bottom: 4px;
+  padding: 2px 22px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  cursor: initial;
+  margin-bottom: 8px;
+}
+
+.transactionCard :global(.MuiCardContent-root) {
+  padding: 0px;
+}
+
+.transactionCard :global(.MuiCardContent-root:last-child) {
+  padding: 0px;
+}
+
+.transactionCardHover:hover {
+  transition: ease-in 0.2;
+  border-color: gray;
+  transition: 0.2s ease-out;
+  cursor: pointer;
+}
+
+.transactionCardContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.employeeData {
+  font-size: 0.875rem;
+  color: #333;
+  margin: 0;
+}

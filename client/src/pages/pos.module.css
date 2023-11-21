@@ -6,12 +6,11 @@ html {
   /* font-family: 'EB Garamond', serif; */
   /* font-family: "Montserrat", sans-serif; */
   font-family: "Roboto", sans-serif;
+  background-color: #f6f6f6;
 }
 
 .pageWrapper {
   padding: 20px 60px 75px;
-  /* background-color: #eee7e1; */
-  background-color: #f6f6f6;
 }
 
 .productsListWrapper {
@@ -27,6 +26,10 @@ html {
 
 .posWrapper {
   /* padding: 48px; */
+}
+
+.link {
+  text-decoration: none;
 }
 
 /* .winesWrapper {

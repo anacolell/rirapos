@@ -5,7 +5,7 @@ export const wines = [
     title: "Δεσμός",
     year: "2022",
     price: 7.8,
-    type: "red",
+    wineType: "red",
   },
   {
     id: "2",
@@ -13,7 +13,7 @@ export const wines = [
     title: "Teddy Boy",
     year: "2022",
     price: 7.9,
-    type: "red",
+    wineType: "red",
   },
   {
     id: "3",
@@ -21,7 +21,7 @@ export const wines = [
     title: "Δεσμός",
     year: "2022",
     price: 8.2,
-    type: "white",
+    wineType: "white",
   },
   {
     id: "4",
@@ -29,7 +29,7 @@ export const wines = [
     title: "2 Roses",
     year: "2022",
     price: 8.3,
-    type: "rose",
+    wineType: "rose",
   },
   {
     id: "5",
@@ -37,7 +37,7 @@ export const wines = [
     title: "Αιγιαλός",
     year: "2022",
     price: 8.6,
-    type: "white",
+    wineType: "white",
   },
   {
     id: "6",
@@ -45,7 +45,7 @@ export const wines = [
     title: "Pinot Noir",
     year: "2022",
     price: 11.6,
-    type: "rose",
+    wineType: "rose",
   },
   {
     id: "7",
@@ -53,7 +53,7 @@ export const wines = [
     title: "Coryphée",
     year: "2022",
     price: 11.6,
-    type: "white",
+    wineType: "white",
   },
   {
     id: "8",
@@ -61,7 +61,7 @@ export const wines = [
     title: "Viognier",
     year: "2020",
     price: 11.9,
-    type: "white",
+    wineType: "white",
   },
   {
     id: "9",
@@ -69,7 +69,7 @@ export const wines = [
     title: "Αιγιαλός",
     year: "2014",
     price: 12.3,
-    type: "red",
+    wineType: "red",
   },
   {
     id: "10",
@@ -77,7 +77,7 @@ export const wines = [
     title: "Μετάβαση",
     year: "2020",
     price: 12.4,
-    type: "red",
+    wineType: "red",
   },
   {
     id: "11",
@@ -85,7 +85,7 @@ export const wines = [
     title: "Concert",
     year: "2019",
     price: 13.5,
-    type: "white",
+    wineType: "white",
   },
   {
     id: "12",
@@ -93,7 +93,7 @@ export const wines = [
     title: "Solist",
     year: "2019",
     price: 16.9,
-    type: "white",
+    wineType: "white",
   },
   {
     id: "13",
@@ -101,7 +101,7 @@ export const wines = [
     quantity: 5,
     year: "2022",
     price: 10,
-    type: "white",
+    wineType: "white",
     isWineInBox: true,
   },
   {
@@ -110,7 +110,7 @@ export const wines = [
     quantity: 5,
     year: "2022",
     price: 10,
-    type: "red",
+    wineType: "red",
     isWineInBox: true,
   },
   {
@@ -119,7 +119,7 @@ export const wines = [
     quantity: 5,
     year: "2022",
     price: 10,
-    type: "rose",
+    wineType: "rose",
     isWineInBox: true,
   },
   {
@@ -128,7 +128,7 @@ export const wines = [
     quantity: 10,
     year: "2022",
     price: 20,
-    type: "white",
+    wineType: "white",
     isWineInBox: true,
   },
   {
@@ -137,7 +137,7 @@ export const wines = [
     quantity: 10,
     year: "2022",
     price: 20,
-    type: "red",
+    wineType: "red",
     isWineInBox: true,
   },
   {
@@ -146,7 +146,7 @@ export const wines = [
     quantity: 10,
     year: "2022",
     price: 20,
-    type: "rose",
+    wineType: "rose",
     isWineInBox: true,
   },
 ];

@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import styles from "./wineBox.module.css";
 import { useCart } from "../../context/cartContext";
 import { Package } from "react-feather";
+import { formatPrice } from "../../utils/utils";
 
 interface Wine {
   id: string;
@@ -9,7 +10,7 @@ interface Wine {
   img?: string;
   year: string;
   price: number;
-  type: string;
+  wineType: string;
   quantity?: number;
   isWineInBox?: boolean;
 }
@@ -22,9 +23,9 @@ export default function WineBox({ wine }: { wine: Wine }) {
 
   let wineType;
 
-  if (wine.type === "red") {
+  if (wine.wineType === "red") {
     wineType = "Ερυθρός";
-  } else if (wine.type === "white") {
+  } else if (wine.wineType === "white") {
     wineType = "Λευκός";
   } else {
     wineType = "Ροζέ";
@@ -71,7 +72,7 @@ export default function WineBox({ wine }: { wine: Wine }) {
             </p>
           )}
           <div className={styles.priceInputWrapper}>
-            <p>{(Math.round(wine.price * 100) / 100).toFixed(2)} €</p>
+            <p>{formatPrice(wine.price)} €</p>
             {quantity === 0 ? (
               <button
                 className={styles.addBtn}
