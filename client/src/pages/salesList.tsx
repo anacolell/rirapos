@@ -52,20 +52,22 @@ export default function SalesList() {
       <div className={styles.listWrapper}>
         {loading ? (
           <CircularProgress className={styles.spinner} />
+        ) : sales.length <= 0 ? (
+          <p>Δεν υπάρχουν ακόμη πωλήσεις</p>
         ) : (
           <Grid container className={styles.list}>
             <Grid container className={styles.tableHead}>
               <Grid item xs={2.5}>
-                <p>Date</p>
+                <p>Ημερομηνία</p>
               </Grid>
               <Grid item xs={2.5}>
-                <p>Time</p>
+                <p>Ώρα</p>
               </Grid>
               <Grid item xs={2.5}>
-                <p>Product</p>
+                <p>Προϊόν</p>
               </Grid>
               <Grid item xs={2.5}>
-                <p>Total</p>
+                <p>Σύνολο</p>
               </Grid>
             </Grid>
             {sales?.map((sale: Sale) => (
