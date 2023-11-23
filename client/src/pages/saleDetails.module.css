@@ -57,7 +57,7 @@
 
 .totalItemPriceCrossed {
   text-decoration: line-through;
-  font-size: 0.9rem;
+  /* font-size: 0.9rem; */
   padding-right: 14px;
 }
 
