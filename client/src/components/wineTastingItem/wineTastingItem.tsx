@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import styles from "./WineTastingItem.module.css";
+import styles from "./wineTastingItem.module.css";
 import { formatPrice } from "../../utils/utils";
 import { useCart } from "../../context/cartContext";
 
