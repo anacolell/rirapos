@@ -1,5 +1,6 @@
 import { WineTasting } from "../context/cartContext";
 import { Wine } from "../pages/saleDetail";
+import { API_URL } from "./config";
 
 export const createSale = async (
   winesInCart: Wine[],
@@ -11,7 +12,7 @@ export const createSale = async (
   comment: string
 ) => {
   try {
-    const response = await fetch("http://localhost:5000/sales", {
+    const response = await fetch(`${API_URL}/sales`, {
       method: "POST",
       body: JSON.stringify({
         wines: winesInCart,

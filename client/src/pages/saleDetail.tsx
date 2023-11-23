@@ -83,7 +83,7 @@ export default function SaleDetail() {
               {sale && sale?.wines?.length > 0 && (
                 <>
                   {sale?.wines?.map((wine: Wine) => (
-                    <div className={styles.productDetails}>
+                    <div className={styles.productDetails} key={wine.id}>
                       <p className={styles.wineDetailsLeft}>
                         {wine.title}
                         <span className={styles.productQuantity}>
@@ -114,7 +114,7 @@ export default function SaleDetail() {
               {sale && sale?.wineTastings?.length > 0 && (
                 <>
                   {sale?.wineTastings?.map((wineTasting: WineTasting) => (
-                    <div className={styles.productDetails}>
+                    <div className={styles.productDetails} key={wineTasting.id}>
                       <p>
                         Γευσιγνωσία
                         <span className={styles.productQuantity}>

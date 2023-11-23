@@ -6,6 +6,8 @@ import { Delete, Visibility } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { Sale } from "../../pages/salesList";
 import { deleteSale } from "../../api/deleteSale";
+import { useState } from "react";
+import ConfirmationDialog from "../confirmDialog/confirmDialog";
 
 type SaleCardProps = {
   sale: Sale;
@@ -14,9 +16,25 @@ type SaleCardProps = {
 };
 
 export default function SaleCard({ sale, sales, setSales }: SaleCardProps) {
-  const handleDelete = async (saleId: string) => {
-    await deleteSale(saleId);
-    setSales(sales.filter((sale) => saleId !== sale._id));
+  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+  const handleDeleteClick = () => {
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    try {
+      await deleteSale(sale._id);
+      setSales(sales.filter((saleItem) => sale._id !== saleItem._id));
+    } catch (error) {
+      console.error("Error deleting sale:", error);
+    } finally {
+      setDeleteDialogOpen(false);
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setDeleteDialogOpen(false);
   };
 
   let product;
@@ -30,47 +48,54 @@ export default function SaleCard({ sale, sales, setSales }: SaleCardProps) {
   }
 
   return (
-    <Card className={styles.transactionCard} elevation={0}>
-      <CardContent className={styles.transactionCardContent}>
-        <Grid container>
-          <Grid item xs={2.5}>
-            <p className={styles.saleData}>
-              {dayjs(sale?.date).format("DD/MM/YYYY")}
-            </p>
-          </Grid>
-          <Grid item xs={2.5}>
-            <p className={styles.saleData}>
-              {dayjs(sale?.date).format("HH:mm")}
-            </p>
-          </Grid>
-          <Grid item xs={2.5}>
-            <p className={styles.saleData}>{product}</p>
-          </Grid>
-          <Grid item xs={2.5}>
-            <p className={styles.saleData}>
-              <p>{formatPrice(sale?.total)} €</p>
-            </p>
-          </Grid>
-          <Grid
-            item
-            xs={2}
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
-            }}
-          >
-            <Link to={`/sales/${sale._id}`}>
-              <IconButton>
-                <Visibility />
+    <>
+      <Card className={styles.transactionCard} elevation={0}>
+        <CardContent className={styles.transactionCardContent}>
+          <Grid container>
+            <Grid item xs={2.5}>
+              <p className={styles.saleData}>
+                {dayjs(sale?.date).format("DD/MM/YYYY")}
+              </p>
+            </Grid>
+            <Grid item xs={2.5}>
+              <p className={styles.saleData}>
+                {dayjs(sale?.date).format("HH:mm")}
+              </p>
+            </Grid>
+            <Grid item xs={2.5}>
+              <p className={styles.saleData}>{product}</p>
+            </Grid>
+            <Grid item xs={2.5}>
+              <p className={styles.saleData}>{formatPrice(sale?.total)} €</p>
+            </Grid>
+            <Grid
+              item
+              xs={2}
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+              }}
+            >
+              <Link to={`/sales/${sale._id}`}>
+                <IconButton>
+                  <Visibility />
+                </IconButton>
+              </Link>
+              <IconButton onClick={handleDeleteClick}>
+                <Delete />
               </IconButton>
-            </Link>
-            <IconButton>
-              <Delete onClick={() => handleDelete(sale._id)} />
-            </IconButton>
+            </Grid>
           </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+      <ConfirmationDialog
+        open={isDeleteDialogOpen}
+        onClose={handleDeleteCancel}
+        onConfirm={handleDeleteConfirm}
+        title="Διαγραφή Πώλησης"
+        description="Είστε σίγουρος/η ότι θέλετε να διαγράψετε αυτή την πώληση;"
+      />
+    </>
   );
 }

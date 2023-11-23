@@ -69,7 +69,7 @@ export default function SalesList() {
               </Grid>
             </Grid>
             {sales?.map((sale: Sale) => (
-              <Grid item xs={12}>
+              <Grid item xs={12} key={sale._id}>
                 <SaleCard
                   sale={sale}
                   sales={sales}

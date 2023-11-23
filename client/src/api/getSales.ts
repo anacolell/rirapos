@@ -1,4 +1,6 @@
+import { API_URL } from "./config";
+
 export const getSales = async () => {
-  const response = await fetch("http://localhost:5000/sales");
+  const response = await fetch(`${API_URL}/sales`);
   return response.json();
 };
