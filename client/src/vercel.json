@@ -17,5 +17,6 @@
       "dest": "/index.html"
     },
     { "src": "/(.*)", "dest": "/" }
-  ]
+  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
