@@ -1,4 +1,4 @@
-import { Grid, TextField } from "@mui/material";
+import { AlertColor, Grid, TextField } from "@mui/material";
 import { useCart } from "../../context/cartContext";
 import CartItem from "../cartItem/cartItem";
 import styles from "./cart.module.css";
@@ -11,29 +11,46 @@ import {
   Percent,
 } from "@mui/icons-material";
 import WineTastingItem from "../wineTastingItem/wineTastingItem";
+import { createSale } from "../../api/createSale";
+import { Wine } from "../../pages/saleDetail";
+import CustomSnackbar from "../customSnackbar/customSnackbar";
 
 export default function Cart() {
-  const { cartItems, wineTastings } = useCart();
+  const { cartItems, wineTastings, resetFields } = useCart();
 
   const [discountAmount, setDiscountAmount] = useState("");
   const [discount, setDiscount] = useState("");
   const [comment, setComment] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] =
+    useState<AlertColor>("success");
 
   const isCartEmpty = cartItems.length <= 0 && wineTastings.length <= 0;
+
+  const emptyCart = () => {
+    resetFields();
+    setDiscount("");
+    setComment("");
+  };
 
   const removeDiscount = () => {
     setDiscount("");
   };
 
-  const winesInCart = cartItems.map((cartItem) => {
+  const winesInCart: Wine[] = cartItems.map((cartItem) => {
     const fullWineData = wines.find((wine) => wine.id === cartItem.id);
     return {
-      ...fullWineData,
+      id: fullWineData?.id || "",
+      img: fullWineData?.img || "",
+      title: fullWineData?.title || "",
+      year: fullWineData?.year || "",
+      price: fullWineData?.price || 0,
+      wineType: fullWineData?.wineType || "",
       quantity: cartItem.quantity,
+      isWineInBox: fullWineData?.isWineInBox || false,
     };
   });
-
-  console.log(winesInCart);
 
   const sortedCartItems = cartItems.sort((a, b) => {
     const itemA = wines.find((wine) => wine.id === a.id);
@@ -101,123 +118,147 @@ export default function Cart() {
 
   const handleCreateSale = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      createSale(
+        winesInCart,
+        wineTastings,
+        discount,
+        discountDifference,
+        subtotal,
+        total,
+        comment
+      );
+      setSnackbarMessage("Η πώληση αποθηκεύτηκε με επιτυχία");
+      setSnackbarSeverity("success");
+      setOpenSnackbar(true);
+      emptyCart();
+      emptyCart();
+    } catch (error) {
+      console.error("Error creating sale", error);
+      setSnackbarMessage("Σφάλμα κατά την αποθήκευση της πώλησης");
+      setSnackbarSeverity("error");
+      setOpenSnackbar(true);
+    }
+  };
 
-    await fetch("http://localhost:5000/sales", {
-      method: "POST",
-      body: JSON.stringify({
-        wines: winesInCart,
-        wineTastings: wineTastings,
-        discount: discount,
-        discountDifference: discountDifference,
-        subTotal: subtotal,
-        total: total,
-        comment: comment,
-        date: new Date(),
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  const handleSnackbarClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
   };
 
   return (
-    <Grid
-      container
-      className={`${styles.cartWrapper} ${
-        isCartEmpty && styles.cartWrapperEmpty
-      }`}
-      direction="column"
-    >
-      {isCartEmpty ? (
-        <ShoppingBasketOutlined />
-      ) : (
-        <>
-          {sortedCartItems.map((item) => (
-            <CartItem key={item.id} {...item} discount={Number(discount)} />
-          ))}
-          {wineTastings.map((wineTasting) => (
-            <WineTastingItem key={wineTasting.id} {...wineTasting} />
-          ))}
-          <Grid
-            item
-            xs={12}
-            sx={{
-              marginTop: "16px",
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            {cartItems.length > 0 && (
-              <div className={styles.discountContainer}>
-                <div className={styles.discountWrapper}>
-                  <TextField
-                    value={discountAmount}
-                    onChange={handleDiscountChange}
-                    className={styles.discountTextField}
-                    placeholder="Έκπτωση"
-                  />
-                  <button
-                    className={styles.applyDiscountBtn}
-                    onClick={handleApplyDiscount}
-                    disabled={Number(discountAmount) <= 0}
-                  >
-                    <Percent sx={{ fontSize: "20px" }} />
-                  </button>
-                </div>
-                {discount && (
-                  <div className={styles.discountTag}>
-                    <LocalOffer sx={{ fontSize: "20px" }} />
-                    <p>{discount}%</p>
+    <>
+      <Grid
+        container
+        className={`${styles.cartWrapper} ${
+          isCartEmpty && styles.cartWrapperEmpty
+        }`}
+        direction="column"
+      >
+        {isCartEmpty ? (
+          <ShoppingBasketOutlined />
+        ) : (
+          <>
+            {sortedCartItems.map((item) => (
+              <CartItem key={item.id} {...item} discount={Number(discount)} />
+            ))}
+            {wineTastings.map((wineTasting) => (
+              <WineTastingItem key={wineTasting.id} {...wineTasting} />
+            ))}
+            <Grid
+              item
+              xs={12}
+              sx={{
+                marginTop: "16px",
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              {cartItems.length > 0 && (
+                <div className={styles.discountContainer}>
+                  <div className={styles.discountWrapper}>
+                    <TextField
+                      value={discountAmount}
+                      onChange={handleDiscountChange}
+                      className={styles.discountTextField}
+                      placeholder="Έκπτωση"
+                    />
                     <button
-                      className={styles.removeDiscountBtn}
-                      onClick={() => removeDiscount()}
+                      className={styles.applyDiscountBtn}
+                      onClick={handleApplyDiscount}
+                      disabled={Number(discountAmount) <= 0}
                     >
-                      &times;
+                      <Percent sx={{ fontSize: "20px" }} />
                     </button>
                   </div>
-                )}
-              </div>
-            )}
-          </Grid>
-          <Grid item xs={12}>
-            <div className={styles.invoiceDetailWrapper}>
-              <p className={styles.invoiceDetailTitle}>Υποσύνολο</p>
-              <p className={styles.invoiceDetailAmount}>
-                {formatPrice(subtotal)} €
-              </p>
-            </div>
-            {discount && (
+                  {discount && (
+                    <div className={styles.discountTag}>
+                      <LocalOffer sx={{ fontSize: "20px" }} />
+                      <p>{discount}%</p>
+                      <button
+                        className={styles.removeDiscountBtn}
+                        onClick={() => removeDiscount()}
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </Grid>
+            <Grid item xs={12}>
               <div className={styles.invoiceDetailWrapper}>
-                <p className={styles.invoiceDetailTitle}>
-                  Έκπτωση ({discount}%)
-                </p>
+                <p className={styles.invoiceDetailTitle}>Υποσύνολο</p>
                 <p className={styles.invoiceDetailAmount}>
-                  {formatPrice(discountDifference)} €
+                  {formatPrice(subtotal)} €
                 </p>
               </div>
-            )}
-            <div className={styles.totalPriceWrapper}>
-              <p className={styles.totalPriceTitle}>Σύνολο</p>
-              <p className={styles.totalPriceAmount}>{formatPrice(total)} €</p>
-            </div>
-            <div>
-              <p className={styles.commentLabel}>Σχόλια</p>
-              <TextField
-                id="comment"
-                multiline
-                rows={2}
-                fullWidth
-                value={comment}
-                onChange={handleCommentChange}
-                className={styles.commentTextField}
-              />
-            </div>
-            <button onClick={handleCreateSale} className={styles.saveBtn}>
-              Αποθήκευση πώλησης
-            </button>
-          </Grid>
-        </>
-      )}
-    </Grid>
+              {discount && (
+                <div className={styles.invoiceDetailWrapper}>
+                  <p className={styles.invoiceDetailTitle}>
+                    Έκπτωση ({discount}%)
+                  </p>
+                  <p className={styles.invoiceDetailAmount}>
+                    {formatPrice(discountDifference)} €
+                  </p>
+                </div>
+              )}
+              <div className={styles.totalPriceWrapper}>
+                <p className={styles.totalPriceTitle}>Σύνολο</p>
+                <p className={styles.totalPriceAmount}>
+                  {formatPrice(total)} €
+                </p>
+              </div>
+              <div>
+                <p className={styles.commentLabel}>Σχόλια</p>
+                <TextField
+                  id="comment"
+                  multiline
+                  rows={2}
+                  fullWidth
+                  value={comment}
+                  onChange={handleCommentChange}
+                  className={styles.commentTextField}
+                />
+              </div>
+              <button onClick={handleCreateSale} className={styles.saveBtn}>
+                Αποθήκευση πώλησης
+              </button>
+            </Grid>
+          </>
+        )}
+      </Grid>
+      <CustomSnackbar
+        open={openSnackbar}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+        severity={snackbarSeverity}
+      />
+    </>
   );
 }

@@ -32,7 +32,7 @@ export default function WineBox({ wine }: { wine: Wine }) {
   }
 
   return (
-    <Grid item xs={6} sm={4} key={wine.id}>
+    <Grid item xs={12} sm={4} key={wine.id}>
       <div
         className={`${styles.wineBoxWrapper}
           ${quantity > 0 && styles.wineBoxWrapperSelected}

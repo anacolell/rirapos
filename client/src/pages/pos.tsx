@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import styles from "./pos.module.css";
 import Cart from "../components/cart/cart";
 import WineTastingForm from "../components/wineTastingForm/wineTastingForm";
+import { List } from "@mui/icons-material";
 
 export default function Pos() {
   return (
@@ -19,11 +20,11 @@ export default function Pos() {
             textAlign: "right",
           }}
         >
-          <Link className={styles.link} to="/sales-list">
-            Sales list
+          <Link className={styles.link} to="/sales">
+            <List /> Λίστα πωλήσεων
           </Link>
         </Grid>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} lg={8}>
           <Grid container spacing={3} className={styles.productsListWrapper}>
             {wines.map((wine) => (
               <WineBox key={wine.id} wine={wine} />
@@ -31,7 +32,7 @@ export default function Pos() {
           </Grid>
           <WineTastingForm />
         </Grid>
-        <Grid item xs={12} md={4} style={{ paddingTop: "42px" }}>
+        <Grid item xs={12} lg={4} style={{ paddingTop: "42px" }}>
           <Cart />
         </Grid>
       </Grid>

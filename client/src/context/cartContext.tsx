@@ -5,7 +5,7 @@ type CartProviderProps = {
   children: ReactNode;
 };
 
-type WineTasting = {
+export type WineTasting = {
   id: string;
   price: number;
   quantity: number;
@@ -21,6 +21,7 @@ type CartContext = {
   wineTastings: WineTasting[];
   addWineTasting: (price: number, quantity: number) => void;
   deleteWineTasting: (id: string) => void;
+  resetFields: () => void;
 };
 
 type CartItem = {
@@ -104,6 +105,11 @@ export function CartProvider({ children }: CartProviderProps) {
     );
   }
 
+  const resetFields = () => {
+    setCartItems([]);
+    setWineTastings([]);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -116,6 +122,7 @@ export function CartProvider({ children }: CartProviderProps) {
         wineTastings,
         addWineTasting,
         deleteWineTasting,
+        resetFields,
       }}
     >
       {children}
