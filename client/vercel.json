@@ -4,7 +4,5 @@
     { "src": "*.py", "use": "@vercel/python" },
     { "src": "*.js", "use": "@vercel/node" }
   ],
-
-  "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }],
   "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
