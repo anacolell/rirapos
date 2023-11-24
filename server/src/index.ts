@@ -5,7 +5,6 @@ import { config } from "dotenv";
 import cors from "cors";
 
 config();
-const PORT = 5000;
 const app = express();
 
 app.use(cors());
@@ -42,6 +41,6 @@ app.delete("/sales/:saleId", async (req: Request, res: Response) => {
 });
 
 mongoose.connect(process.env.MONGO_URL ?? "").then(() => {
-  console.log(`listening on port ${PORT}`);
-  app.listen(PORT);
+  console.log(`listening on port ${process.env.PORT}`);
+  app.listen(process.env.PORT);
 });
