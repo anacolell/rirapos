@@ -13,6 +13,7 @@ app.use(express.json());
 app.get("/sales", async (req: Request, res: Response) => {
   const sales = await Sale.find().sort({ date: -1 });
   res.json(sales);
+  return sales;
 });
 
 app.post("/sales", async (req: Request, res: Response) => {
@@ -44,8 +45,3 @@ mongoose.connect(process.env.MONGO_URL ?? "").then(() => {
   console.log(`listening on port ${process.env.PORT}`);
   app.listen(process.env.PORT);
 });
-
-// mongoose.connect(process.env.MONGO_URL ?? "").then(() => {
-//   console.log(`listening on port ${process.env.PORT}`);
-//   app.listen(process.env.PORT);
-// });
