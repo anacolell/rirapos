@@ -7,6 +7,8 @@ import * as cors from "cors";
 
 config();
 const app = express();
+const mongoUrl =
+  process.env.MONGO_URL !== undefined ? process.env.MONGO_URL : "";
 
 app.use(cors());
 app.use(express.json());
@@ -42,7 +44,7 @@ app.delete("/sales/:saleId", async (req: Request, res: Response) => {
   }
 });
 
-mongoose.connect(process.env.MONGO_URL ?? "").then(() => {
+mongoose.connect(mongoUrl).then(() => {
   console.log(`listening on port ${process.env.PORT}`);
   app.listen(process.env.PORT);
 });
