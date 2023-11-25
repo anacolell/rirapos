@@ -6,7 +6,6 @@ import styles from "./pos.module.css";
 import Cart from "../components/cart/cart";
 import WineTastingForm from "../components/wineTastingForm/wineTastingForm";
 import { List } from "@mui/icons-material";
-import { API_URL } from "../api/config";
 
 export default function Pos() {
   return (
