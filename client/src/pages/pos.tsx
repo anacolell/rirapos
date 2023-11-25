@@ -6,8 +6,10 @@ import styles from "./pos.module.css";
 import Cart from "../components/cart/cart";
 import WineTastingForm from "../components/wineTastingForm/wineTastingForm";
 import { List } from "@mui/icons-material";
+import { API_URL } from "../api/config";
 
 export default function Pos() {
+  console.log("API_URL", API_URL);
   return (
     <main className={styles.pageWrapper}>
       <Grid container spacing={6} className={styles.posWrapper}>
