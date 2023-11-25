@@ -1,8 +1,9 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
+import * as express from "express";
 import mongoose from "mongoose";
 import Sale from "./models/Sale";
 import { config } from "dotenv";
-import cors from "cors";
+import * as cors from "cors";
 
 config();
 const app = express();
