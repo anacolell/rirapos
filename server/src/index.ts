@@ -1,14 +1,11 @@
-import { Request, Response } from "express";
-import * as express from "express";
+import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import Sale from "./models/Sale";
 import { config } from "dotenv";
-import * as cors from "cors";
+import cors from "cors";
 
 config();
 const app = express();
-const mongoUrl =
-  process.env.MONGO_URL !== undefined ? process.env.MONGO_URL : "";
 
 app.use(cors());
 app.use(express.json());
@@ -44,7 +41,7 @@ app.delete("/sales/:saleId", async (req: Request, res: Response) => {
   }
 });
 
-mongoose.connect(mongoUrl).then(() => {
+mongoose.connect(process.env.MONGO_URL ?? "").then(() => {
   console.log(`listening on port ${process.env.PORT}`);
   app.listen(process.env.PORT);
 });
