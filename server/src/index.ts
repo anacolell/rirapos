@@ -10,6 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const mongoUrl =
+  process.env.MONGO_URL !== undefined ? process.env.MONGO_URL : "";
+
 app.get("/sales", async (req: Request, res: Response) => {
   const sales = await Sale.find().sort({ date: -1 });
   res.json(sales);
@@ -41,7 +44,7 @@ app.delete("/sales/:saleId", async (req: Request, res: Response) => {
   }
 });
 
-mongoose.connect(process.env.MONGO_URL ?? "").then(() => {
+mongoose.connect(mongoUrl).then(() => {
   console.log(`listening on port ${process.env.PORT}`);
   app.listen(process.env.PORT);
 });
