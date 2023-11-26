@@ -16,8 +16,7 @@ html {
 .productsListWrapper {
   background-color: #fff;
   background-color: #f6f6f6;
-  /* padding-right: 8px; */
-  padding-bottom: 8px;
+  padding-bottom: 24px;
 }
 
 .cartWrapper {
@@ -59,11 +58,3 @@ html {
 .listIcon {
   margin-right: 8px;
 }
-
-/* .winesWrapper {
-  width: 60%;
-}
-
-.cartWrapper {
-  width: 40%;
-} */

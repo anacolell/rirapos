@@ -18,6 +18,9 @@ export default function Pos() {
 
   const selectedWines = winesChecked ? winesBusiness : wines;
 
+  const selectedWinesBottle = selectedWines.filter((wine) => !wine.isWineInBox);
+  const selectedWinesInBox = selectedWines.filter((wine) => wine.isWineInBox);
+
   return (
     <main className={styles.pageWrapper}>
       <Grid container spacing={6} className={styles.posWrapper}>
@@ -50,7 +53,12 @@ export default function Pos() {
         </Grid>
         <Grid item xs={12} lg={8}>
           <Grid container spacing={3} className={styles.productsListWrapper}>
-            {selectedWines.map((wine) => (
+            {selectedWinesBottle.map((wine) => (
+              <WineBox key={wine.id} wine={wine} />
+            ))}
+          </Grid>
+          <Grid container spacing={3} className={styles.productsListWrapper}>
+            {selectedWinesInBox.map((wine) => (
               <WineBox key={wine.id} wine={wine} />
             ))}
           </Grid>
