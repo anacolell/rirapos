@@ -1,13 +1,23 @@
-import { Grid } from "@mui/material";
+import { Grid, Stack, Switch, Typography } from "@mui/material";
 import { wines } from "../data/wines";
+import { winesBusiness } from "../data/winesBusiness";
 import WineBox from "../components/wineBox/wineBox";
 import { Link } from "react-router-dom";
 import styles from "./pos.module.css";
 import Cart from "../components/cart/cart";
 import WineTastingForm from "../components/wineTastingForm/wineTastingForm";
 import { List } from "@mui/icons-material";
+import { useState } from "react";
 
 export default function Pos() {
+  const [winesChecked, setWinesChecked] = useState(true);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setWinesChecked(event.target.checked);
+  };
+
+  const selectedWines = winesChecked ? winesBusiness : wines;
+
   return (
     <main className={styles.pageWrapper}>
       <Grid container spacing={6} className={styles.posWrapper}>
@@ -20,13 +30,23 @@ export default function Pos() {
             textAlign: "right",
           }}
         >
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Typography>Κρασιά</Typography>
+            <Switch
+              className={styles.switch}
+              checked={winesChecked}
+              onChange={handleChange}
+              disableRipple
+            />
+            <Typography>Κρασιά για επιχειρήσεις</Typography>
+          </Stack>
           <Link className={styles.link} to="/sales">
             <List /> Λίστα πωλήσεων
           </Link>
         </Grid>
         <Grid item xs={12} lg={8}>
           <Grid container spacing={3} className={styles.productsListWrapper}>
-            {wines.map((wine) => (
+            {selectedWines.map((wine) => (
               <WineBox key={wine.id} wine={wine} />
             ))}
           </Grid>

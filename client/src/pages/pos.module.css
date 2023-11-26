@@ -24,8 +24,20 @@ html {
   padding-top: 8px;
 }
 
-.posWrapper {
-  /* padding: 48px; */
+.switch :global(.MuiSwitch-switchBase.Mui-checked),
+.switch :global(.MuiSwitch-switchBase) {
+  color: #7c0404;
+}
+
+.switch :global(.MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track),
+.switch :global(.MuiSwitch-switchBase + .MuiSwitch-track) {
+  background-color: #7c0404;
+}
+
+.switch :global(.MuiSwitch-switchBase.Mui-checked:hover),
+.switch :global(.MuiSwitch-switchBase:hover) {
+  color: #7c0404;
+  background-color: transparent;
 }
 
 .link {

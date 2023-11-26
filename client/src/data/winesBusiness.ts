@@ -1,10 +1,10 @@
-export const wines = [
+export const winesBusiness = [
   {
     id: "1",
     img: "teddy_boy.png",
     title: "Teddy Boy",
     year: "2022",
-    price: 7.9,
+    price: 6.6,
     wineType: "red",
   },
   {
@@ -12,7 +12,7 @@ export const wines = [
     img: "Desmos_2022.png",
     title: "Δεσμός",
     year: "2022",
-    price: 8.2,
+    price: 6.3,
     wineType: "white",
   },
   {
@@ -20,7 +20,7 @@ export const wines = [
     img: "Desmos_2020.png",
     title: "Δεσμός",
     year: "2022",
-    price: 7.8,
+    price: 6.6,
     wineType: "red",
   },
   {
@@ -28,7 +28,7 @@ export const wines = [
     img: "2Roses_2022.png",
     title: "2 Roses",
     year: "2022",
-    price: 8.3,
+    price: 6.7,
     wineType: "rose",
   },
   {
@@ -36,7 +36,7 @@ export const wines = [
     img: "Aigialos_white_2022.png",
     title: "Αιγιαλός",
     year: "2022",
-    price: 8.6,
+    price: 6.95,
     wineType: "white",
   },
   {
@@ -44,7 +44,7 @@ export const wines = [
     img: "Αigialos_2014.png",
     title: "Αιγιαλός",
     year: "2014",
-    price: 12.3,
+    price: 9.9,
     wineType: "red",
   },
   {
@@ -52,7 +52,7 @@ export const wines = [
     img: "Pinot_Noir_Rose_2022.png",
     title: "Pinot Noir",
     year: "2022",
-    price: 11.6,
+    price: 9.4,
     wineType: "rose",
   },
   {
@@ -60,7 +60,7 @@ export const wines = [
     img: "Gewurztraminer_2021.png",
     title: "Coryphée",
     year: "2022",
-    price: 11.6,
+    price: 9.4,
     wineType: "white",
   },
   {
@@ -68,7 +68,7 @@ export const wines = [
     img: "Viognier_2020.png",
     title: "Viognier",
     year: "2020",
-    price: 11.9,
+    price: 9.7,
     wineType: "white",
   },
 
@@ -77,7 +77,7 @@ export const wines = [
     img: "Metabash_2020.png",
     title: "Μετάβαση",
     year: "2020",
-    price: 12.4,
+    price: 1,
     wineType: "red",
   },
   {
@@ -85,7 +85,7 @@ export const wines = [
     img: "Chardonnay_2018.png",
     title: "Concert",
     year: "2019",
-    price: 13.5,
+    price: 10.9,
     wineType: "white",
   },
   {
@@ -93,7 +93,7 @@ export const wines = [
     img: "Pinot_Noir_2018.png",
     title: "Solist",
     year: "2019",
-    price: 16.9,
+    price: 13.8,
     wineType: "white",
   },
   {
