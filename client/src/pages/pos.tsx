@@ -21,28 +21,32 @@ export default function Pos() {
   return (
     <main className={styles.pageWrapper}>
       <Grid container spacing={6} className={styles.posWrapper}>
-        <Grid
-          item
-          xs={12}
-          sx={{
-            marginTop: "56px",
-            marginBottom: "20px",
-            textAlign: "right",
-          }}
-        >
+        <Grid item xs={12} md={6}>
           <Stack direction="row" spacing={1} alignItems="center">
-            <Typography>Κρασιά</Typography>
+            <Typography>Λιανική</Typography>
             <Switch
               className={styles.switch}
               checked={winesChecked}
               onChange={handleChange}
               disableRipple
             />
-            <Typography>Κρασιά για επιχειρήσεις</Typography>
+            <Typography>Χονδρική</Typography>
           </Stack>
-          <Link className={styles.link} to="/sales">
-            <List /> Λίστα πωλήσεων
-          </Link>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{
+            // marginBottom: "20px",
+            textAlign: "right",
+          }}
+        >
+          <div className={styles.link}>
+            <Link className={styles.linkText} to="/sales">
+              <List /> Λίστα πωλήσεων
+            </Link>
+          </div>
         </Grid>
         <Grid item xs={12} lg={8}>
           <Grid container spacing={3} className={styles.productsListWrapper}>

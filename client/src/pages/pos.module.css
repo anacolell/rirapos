@@ -10,13 +10,13 @@ html {
 }
 
 .pageWrapper {
-  padding: 20px 60px 75px;
+  padding: 60px 60px 75px;
 }
 
 .productsListWrapper {
   background-color: #fff;
   background-color: #f6f6f6;
-  padding-right: 8px;
+  /* padding-right: 8px; */
   padding-bottom: 8px;
 }
 
@@ -41,13 +41,19 @@ html {
 }
 
 .link {
-  text-decoration: none;
-  color: #333;
-  font-size: 1.1rem;
   text-align: right;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  margin: 7px 0;
+}
+
+.linkText {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
 }
 
 .listIcon {
