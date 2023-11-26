@@ -40,11 +40,11 @@ export default function SaleCard({ sale, sales, setSales }: SaleCardProps) {
   let product;
 
   if (sale.wines?.length > 0 && sale.wineTastings?.length > 0) {
-    product = "Wine & tasting";
+    product = "Οίνος & Γευσιγνωσία";
   } else if (sale.wines?.length > 0 && sale.wineTastings?.length <= 0) {
-    product = "Wine";
+    product = "Οίνος";
   } else {
-    product = "Tasting";
+    product = "Γευσιγνωσία";
   }
 
   return (
