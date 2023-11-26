@@ -18,28 +18,30 @@ export default function WineTastingForm() {
   };
 
   return (
-    <div>
+    <div className={styles.tastingFormWrapper}>
       <h3>Γευσιγνωσίες</h3>
       <Grid container spacing={1} alignItems="center">
-        <Grid item>
+        <Grid item xs={12} md={5.5}>
           <TextField
             label="Τιμή"
             className={styles.tastingTextField}
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             size="small"
+            fullWidth
           />
         </Grid>
-        <Grid item>
+        <Grid item xs={12} md={5.5}>
           <TextField
             label="Άτομα"
             className={styles.tastingTextField}
             value={numPeople}
             onChange={(e) => setNumPeople(e.target.value)}
             size="small"
+            fullWidth
           />
         </Grid>
-        <Grid item>
+        <Grid item xs={12} md={1}>
           <button onClick={handleDoneClick} className={styles.addTastingBtn}>
             <Add />
           </button>
