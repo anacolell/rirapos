@@ -10,7 +10,7 @@ import { List } from "@mui/icons-material";
 import { useState } from "react";
 
 export default function Pos() {
-  const [winesChecked, setWinesChecked] = useState(true);
+  const [winesChecked, setWinesChecked] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWinesChecked(event.target.checked);
