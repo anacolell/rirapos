@@ -16,8 +16,12 @@ interface Wine {
 }
 
 export default function WineBox({ wine }: { wine: Wine }) {
-  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity } =
-    useCart();
+  const {
+    getItemQuantity,
+    setCartQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+  } = useCart();
 
   const quantity = getItemQuantity(wine.id);
 
@@ -88,8 +92,13 @@ export default function WineBox({ wine }: { wine: Wine }) {
                 >
                   -
                 </button>
-
-                <span className={styles.quantity}>{quantity}</span>
+                <input
+                  onChange={(e) =>
+                    setCartQuantity(wine.id, Number(e.target.value))
+                  }
+                  className={styles.quantity}
+                  value={quantity}
+                />
                 <button
                   onClick={() => increaseCartQuantity(wine.id)}
                   className={styles.quantityInputBtn}

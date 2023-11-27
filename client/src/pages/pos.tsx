@@ -41,7 +41,6 @@ export default function Pos() {
           xs={12}
           md={6}
           sx={{
-            // marginBottom: "20px",
             textAlign: "right",
           }}
         >

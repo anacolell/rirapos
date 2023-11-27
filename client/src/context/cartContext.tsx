@@ -13,6 +13,7 @@ export type WineTasting = {
 
 type CartContext = {
   getItemQuantity: (id: string) => number;
+  setCartQuantity: (id: string, newQuantity: number) => void;
   increaseCartQuantity: (id: string) => void;
   decreaseCartQuantity: (id: string) => void;
   removeFromCart: (id: string) => void;
@@ -41,6 +42,18 @@ export function CartProvider({ children }: CartProviderProps) {
 
   function getItemQuantity(id: string) {
     return cartItems?.find((item) => item.id === id)?.quantity || 0;
+  }
+
+  function setCartQuantity(id: string, newQuantity: number) {
+    setCartItems((currItems) => {
+      return currItems?.map((item) => {
+        if (item.id === id) {
+          return { ...item, quantity: newQuantity };
+        } else {
+          return item;
+        }
+      });
+    });
   }
 
   function increaseCartQuantity(id: string) {
@@ -114,6 +127,7 @@ export function CartProvider({ children }: CartProviderProps) {
     <CartContext.Provider
       value={{
         getItemQuantity,
+        setCartQuantity,
         increaseCartQuantity,
         decreaseCartQuantity,
         removeFromCart,

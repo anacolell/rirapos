@@ -91,9 +91,14 @@
   background-color: #fff;
   width: 26px;
   height: 26px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border: none;
+  text-align: center;
+  padding: 0;
+}
+
+.quantity:focus {
+  border: none;
+  outline: none;
 }
 
 .addBtn {
