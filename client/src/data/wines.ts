@@ -50,7 +50,7 @@ export const wines = [
   {
     id: "7",
     img: "Pinot_Noir_Rose_2022.png",
-    title: "Pinot Noir",
+    title: "Pinot Noir Rosé",
     year: "2022",
     price: 11.6,
     wineType: "rose",
