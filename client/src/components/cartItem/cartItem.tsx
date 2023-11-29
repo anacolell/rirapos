@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import { useCart } from "../../context/cartContext";
 import { wines } from "../../data/wines";
+import { winesBusiness } from "../../data/winesBusiness";
 import styles from "./cartItem.module.css";
 import { calculateDiscount, formatPrice } from "../../utils/utils";
 import { Package } from "react-feather";
@@ -12,8 +13,9 @@ type CartItemProps = {
 };
 
 export default function CartItem({ id, quantity, discount }: CartItemProps) {
-  const { removeFromCart } = useCart();
-  const item = wines.find((i) => i.id === id);
+  const { removeFromCart, businessWinesChecked } = useCart();
+  const wineList = businessWinesChecked ? winesBusiness : wines;
+  const item = wineList.find((i) => i.id === id);
   if (item === null) return null;
 
   const formattedPrice = item && formatPrice(item.price);

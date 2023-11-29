@@ -7,16 +7,16 @@ import styles from "./pos.module.css";
 import Cart from "../components/cart/cart";
 import WineTastingForm from "../components/wineTastingForm/wineTastingForm";
 import { List } from "@mui/icons-material";
-import { useState } from "react";
+import { useCart } from "../context/cartContext";
 
 export default function Pos() {
-  const [winesChecked, setWinesChecked] = useState(false);
+  const { businessWinesChecked, setBusinessWinesChecked } = useCart();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setWinesChecked(event.target.checked);
+    setBusinessWinesChecked(event.target.checked);
   };
 
-  const selectedWines = winesChecked ? winesBusiness : wines;
+  const selectedWines = businessWinesChecked ? winesBusiness : wines;
 
   const selectedWinesBottle = selectedWines.filter((wine) => !wine.isWineInBox);
   const selectedWinesInBox = selectedWines.filter((wine) => wine.isWineInBox);
@@ -29,7 +29,7 @@ export default function Pos() {
             <Typography>Λιανική</Typography>
             <Switch
               className={styles.switch}
-              checked={winesChecked}
+              checked={businessWinesChecked}
               onChange={handleChange}
               disableRipple
             />

@@ -23,6 +23,8 @@ type CartContext = {
   addWineTasting: (price: number, quantity: number) => void;
   deleteWineTasting: (id: string) => void;
   resetFields: () => void;
+  businessWinesChecked: boolean;
+  setBusinessWinesChecked: (value: boolean) => void;
 };
 
 type CartItem = {
@@ -39,6 +41,7 @@ export function useCart() {
 export function CartProvider({ children }: CartProviderProps) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [wineTastings, setWineTastings] = useState<WineTasting[]>([]);
+  const [businessWinesChecked, setBusinessWinesChecked] = useState(false);
 
   function getItemQuantity(id: string) {
     return cartItems?.find((item) => item.id === id)?.quantity || 0;
@@ -137,6 +140,8 @@ export function CartProvider({ children }: CartProviderProps) {
         addWineTasting,
         deleteWineTasting,
         resetFields,
+        businessWinesChecked,
+        setBusinessWinesChecked,
       }}
     >
       {children}

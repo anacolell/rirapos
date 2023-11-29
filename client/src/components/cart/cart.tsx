@@ -3,6 +3,7 @@ import { useCart } from "../../context/cartContext";
 import CartItem from "../cartItem/cartItem";
 import styles from "./cart.module.css";
 import { wines } from "../../data/wines";
+import { winesBusiness } from "../../data/winesBusiness";
 import { calculateDiscount, formatPrice } from "../../utils/utils";
 import { useState } from "react";
 import {
@@ -16,7 +17,10 @@ import { Wine } from "../../pages/saleDetail";
 import CustomSnackbar from "../customSnackbar/customSnackbar";
 
 export default function Cart() {
-  const { cartItems, wineTastings, resetFields } = useCart();
+  const { cartItems, wineTastings, resetFields, businessWinesChecked } =
+    useCart();
+
+  const wineList = businessWinesChecked ? winesBusiness : wines;
 
   const [discountAmount, setDiscountAmount] = useState("");
   const [discount, setDiscount] = useState("");
@@ -39,7 +43,7 @@ export default function Cart() {
   };
 
   const winesInCart: Wine[] = cartItems.map((cartItem) => {
-    const fullWineData = wines.find((wine) => wine.id === cartItem.id);
+    const fullWineData = wineList.find((wine) => wine.id === cartItem.id);
     return {
       id: fullWineData?.id || "",
       img: fullWineData?.img || "",
@@ -53,8 +57,8 @@ export default function Cart() {
   });
 
   const sortedCartItems = cartItems.sort((a, b) => {
-    const itemA = wines.find((wine) => wine.id === a.id);
-    const itemB = wines.find((wine) => wine.id === b.id);
+    const itemA = wineList.find((wine) => wine.id === a.id);
+    const itemB = wineList.find((wine) => wine.id === b.id);
 
     const isWineInBoxA = itemA?.isWineInBox || false;
     const isWineInBoxB = itemB?.isWineInBox || false;
@@ -66,7 +70,7 @@ export default function Cart() {
   });
 
   const totalPriceWines = cartItems.reduce((total, cartItem) => {
-    const item = wines.find((i) => i.id === cartItem.id);
+    const item = wineList.find((i) => i.id === cartItem.id);
     if (!item?.isWineInBox) {
       return total + (item?.price || 0) * cartItem.quantity;
     } else {
@@ -75,7 +79,7 @@ export default function Cart() {
   }, 0);
 
   const totalPriceIsWineInBoxWines = cartItems.reduce((total, cartItem) => {
-    const item = wines.find((i) => i.id === cartItem.id);
+    const item = wineList.find((i) => i.id === cartItem.id);
     if (item?.isWineInBox) {
       return total + (item?.price || 0) * cartItem.quantity;
     } else {
