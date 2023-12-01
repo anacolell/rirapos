@@ -33,3 +33,9 @@
   color: #333;
   margin: 0;
 }
+
+.saleDataComment {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

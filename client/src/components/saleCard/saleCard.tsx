@@ -52,20 +52,23 @@ export default function SaleCard({ sale, sales, setSales }: SaleCardProps) {
       <Card className={styles.transactionCard} elevation={0}>
         <CardContent className={styles.transactionCardContent}>
           <Grid container>
-            <Grid item xs={2.5}>
+            <Grid item xs={2}>
               <p className={styles.saleData}>
                 {dayjs(sale?.date).format("DD/MM/YYYY")}
               </p>
             </Grid>
-            <Grid item xs={2.5}>
+            <Grid item xs={2}>
               <p className={styles.saleData}>
                 {dayjs(sale?.date).format("HH:mm")}
               </p>
             </Grid>
-            <Grid item xs={2.5}>
+            <Grid item xs={2}>
               <p className={styles.saleData}>{product}</p>
             </Grid>
-            <Grid item xs={2.5}>
+            <Grid item xs={2} sx={{ paddingRight: "24px" }}>
+              <p className={styles.saleDataComment}>{sale.comment}</p>
+            </Grid>
+            <Grid item xs={2}>
               <p className={styles.saleData}>{formatPrice(sale?.total)} €</p>
             </Grid>
             <Grid

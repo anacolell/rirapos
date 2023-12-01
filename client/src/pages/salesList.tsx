@@ -57,16 +57,19 @@ export default function SalesList() {
         ) : (
           <Grid container className={styles.list}>
             <Grid container className={styles.tableHead}>
-              <Grid item xs={2.5}>
+              <Grid item xs={2}>
                 <p>Ημερομηνία</p>
               </Grid>
-              <Grid item xs={2.5}>
+              <Grid item xs={2}>
                 <p>Ώρα</p>
               </Grid>
-              <Grid item xs={2.5}>
+              <Grid item xs={2}>
                 <p>Προϊόν</p>
               </Grid>
-              <Grid item xs={2.5}>
+              <Grid item xs={2}>
+                <p>Σχόλια</p>
+              </Grid>
+              <Grid item xs={2}>
                 <p>Σύνολο</p>
               </Grid>
             </Grid>
