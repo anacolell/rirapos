@@ -12,6 +12,10 @@ export function calculateDiscount(price: number, discount: number) {
   return (price * discount) / 100;
 }
 
+export function calculateTax(price: number) {
+  return (price * 24) / 100;
+}
+
 export function calculateAndFormatDiscountedPrice(
   quantity: number,
   price: number,

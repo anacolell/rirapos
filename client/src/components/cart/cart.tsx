@@ -4,7 +4,11 @@ import CartItem from "../cartItem/cartItem";
 import styles from "./cart.module.css";
 import { wines } from "../../data/wines";
 import { winesBusiness } from "../../data/winesBusiness";
-import { calculateDiscount, formatPrice } from "../../utils/utils";
+import {
+  calculateDiscount,
+  calculateTax,
+  formatPrice,
+} from "../../utils/utils";
 import { useState } from "react";
 import {
   ShoppingBasketOutlined,
@@ -100,9 +104,23 @@ export default function Cart() {
   const subtotal =
     totalPriceWines + totalPriceIsWineInBoxWines + totalPriceTastings;
 
+  const taxAmount = discount
+    ? calculateTax(
+        discountedPrice + totalPriceIsWineInBoxWines + totalPriceTastings
+      )
+    : calculateTax(
+        totalPriceWines + totalPriceIsWineInBoxWines + totalPriceTastings
+      );
+
   const total = discount
-    ? discountedPrice + totalPriceIsWineInBoxWines + totalPriceTastings
-    : totalPriceWines + totalPriceIsWineInBoxWines + totalPriceTastings;
+    ? discountedPrice +
+      totalPriceIsWineInBoxWines +
+      totalPriceTastings +
+      (businessWinesChecked ? taxAmount : 0)
+    : totalPriceWines +
+      totalPriceIsWineInBoxWines +
+      totalPriceTastings +
+      (businessWinesChecked ? taxAmount : 0);
 
   const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setComment(event.target.value);
@@ -229,6 +247,14 @@ export default function Cart() {
                   </p>
                   <p className={styles.invoiceDetailAmount}>
                     {formatPrice(discountDifference)} €
+                  </p>
+                </div>
+              )}
+              {businessWinesChecked && (
+                <div className={styles.invoiceDetailWrapper}>
+                  <p className={styles.invoiceDetailTitle}>ΦΠΑ (24%)</p>
+                  <p className={styles.invoiceDetailAmount}>
+                    {formatPrice(taxAmount)} €
                   </p>
                 </div>
               )}
