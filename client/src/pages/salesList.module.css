@@ -39,6 +39,17 @@
   margin: 0;
 }
 
+.textfield :global(.MuiInputBase-root) {
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.textfield :global(.MuiOutlinedInput-notchedOutline),
+.textfield :global(.MuiOutlinedInput-root:hover fieldset),
+.textfield :global(.MuiOutlinedInput-root.Mui-focused fieldset) {
+  border: 1px solid #c0c0c0;
+}
+
 @media screen and (max-width: 767px) {
   .list,
   .listWrapper {
