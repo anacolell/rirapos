@@ -39,6 +39,12 @@
   margin: 0;
 }
 
+.columnHeaderWrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 .textfield :global(.MuiInputBase-root) {
   background-color: #fff;
   border-radius: 4px;
@@ -48,6 +54,47 @@
 .textfield :global(.MuiOutlinedInput-root:hover fieldset),
 .textfield :global(.MuiOutlinedInput-root.Mui-focused fieldset) {
   border: 1px solid #c0c0c0;
+}
+
+.button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #5384c1;
+  color: #fff;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #335c8e;
+}
+
+.drawerTitle {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  color: #666;
+  font-weight: 600;
+}
+
+.drawerSubTitle {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.drawer :global(.MuiPaper-root) {
+  width: 80%;
+  padding: 24px;
+}
+
+.closeDrawerWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media screen and (max-width: 767px) {
@@ -63,5 +110,11 @@
 
   .pageWrapper {
     padding: 60px 20px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .drawer :global(.MuiPaper-root) {
+    width: 318px;
   }
 }
