@@ -5,20 +5,8 @@ import { CircularProgress, Grid } from "@mui/material";
 import dayjs from "dayjs";
 import { calculateAndFormatDiscountedPrice, formatPrice } from "../utils/utils";
 import { ArrowBackIos } from "@mui/icons-material";
-import { Sale } from "./salesList";
-import { WineTasting } from "../context/cartContext";
 import { getSales } from "../api/getSales";
-
-export type Wine = {
-  id: string;
-  img: string;
-  title: string;
-  year: string;
-  price: number;
-  wineType: string;
-  quantity: number;
-  isWineInBox: boolean;
-};
+import { Sale, Wine, WineTasting } from "../types/types";
 
 export default function SaleDetail() {
   const { saleId } = useParams();
@@ -93,11 +81,11 @@ export default function SaleDetail() {
                       {sale.discount && !wine.isWineInBox ? (
                         <div className={styles.discountedPriceWrapper}>
                           <p className={styles.totalItemPriceCrossed}>
-                            {formatPrice(wine.quantity * wine.price)} €
+                            {formatPrice(wine.quantity || 0 * wine.price)} €
                           </p>
                           <p>
                             {calculateAndFormatDiscountedPrice(
-                              wine.quantity,
+                              wine.quantity || 0,
                               wine.price,
                               sale.discount
                             )}
@@ -105,7 +93,7 @@ export default function SaleDetail() {
                           </p>
                         </div>
                       ) : (
-                        <p>{formatPrice(wine.quantity * wine.price)} €</p>
+                        <p>{formatPrice(wine.quantity || 0 * wine.price)} €</p>
                       )}
                     </div>
                   ))}

@@ -17,14 +17,14 @@ import {
 } from "@mui/icons-material";
 import WineTastingItem from "../wineTastingItem/wineTastingItem";
 import { createSale } from "../../api/createSale";
-import { Wine } from "../../pages/saleDetail";
 import CustomSnackbar from "../customSnackbar/customSnackbar";
+import { Wine } from "../../types/types";
 
 export default function Cart() {
   const { cartItems, wineTastings, resetFields, businessWinesChecked } =
     useCart();
 
-  const wineList = businessWinesChecked ? winesBusiness : wines;
+  const wineList: Wine[] = businessWinesChecked ? winesBusiness : wines;
 
   const [discountAmount, setDiscountAmount] = useState("");
   const [discount, setDiscount] = useState("");
@@ -55,7 +55,7 @@ export default function Cart() {
       year: fullWineData?.year || "",
       price: fullWineData?.price || 0,
       wineType: fullWineData?.wineType || "",
-      quantity: cartItem.quantity,
+      quantity: cartItem.quantity || 0,
       isWineInBox: fullWineData?.isWineInBox || false,
     };
   });
@@ -148,7 +148,8 @@ export default function Cart() {
         discountDifference,
         subtotal,
         total,
-        comment
+        comment,
+        businessWinesChecked
       );
       setSnackbarMessage("Η πώληση αποθηκεύτηκε με επιτυχία");
       setSnackbarSeverity("success");

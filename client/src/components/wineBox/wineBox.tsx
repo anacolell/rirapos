@@ -3,17 +3,7 @@ import styles from "./wineBox.module.css";
 import { useCart } from "../../context/cartContext";
 import { Package } from "react-feather";
 import { formatPrice } from "../../utils/utils";
-
-interface Wine {
-  id: string;
-  title: string;
-  img?: string;
-  year: string;
-  price: number;
-  wineType: string;
-  quantity?: number;
-  isWineInBox?: boolean;
-}
+import { Wine } from "../../types/types";
 
 export default function WineBox({ wine }: { wine: Wine }) {
   const {

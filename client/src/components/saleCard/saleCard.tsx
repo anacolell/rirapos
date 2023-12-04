@@ -4,10 +4,10 @@ import { Card, CardContent, Grid, IconButton } from "@mui/material";
 import styles from "./saleCard.module.css";
 import { Delete, Visibility } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { Sale } from "../../pages/salesList";
 import { deleteSale } from "../../api/deleteSale";
 import { useState } from "react";
 import ConfirmationDialog from "../confirmDialog/confirmDialog";
+import { Sale } from "../../types/types";
 
 type SaleCardProps = {
   sale: Sale;
