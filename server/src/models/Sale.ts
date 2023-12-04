@@ -25,6 +25,7 @@ const SaleSchema = new Schema({
   discountDifference: Number,
   comment: String,
   date: Date,
+  isBusiness: Boolean,
 });
 
 const SaleModel = mongoose.model("Sale", SaleSchema);

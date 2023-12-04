@@ -23,6 +23,7 @@ app.post("/sales", async (req: Request, res: Response) => {
   console.log("Received request body:", req.body);
 
   const newSale = new Sale(req.body);
+
   try {
     const createdSale = await newSale.save();
     res.json(createdSale);
