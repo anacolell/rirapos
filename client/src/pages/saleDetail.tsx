@@ -81,7 +81,9 @@ export default function SaleDetail() {
                       {sale.discount && !wine.isWineInBox ? (
                         <div className={styles.discountedPriceWrapper}>
                           <p className={styles.totalItemPriceCrossed}>
-                            {formatPrice(wine.quantity || 0 * wine.price)} €
+                            {wine.quantity &&
+                              formatPrice(wine.quantity * wine.price)}
+                            €
                           </p>
                           <p>
                             {calculateAndFormatDiscountedPrice(
@@ -93,7 +95,11 @@ export default function SaleDetail() {
                           </p>
                         </div>
                       ) : (
-                        <p>{formatPrice(wine.quantity || 0 * wine.price)} €</p>
+                        <p>
+                          {wine.quantity &&
+                            formatPrice(wine.quantity * wine.price)}
+                          €
+                        </p>
                       )}
                     </div>
                   ))}
@@ -116,7 +122,6 @@ export default function SaleDetail() {
               )}
             </Grid>
           </Grid>
-
           <Grid container>
             <Grid item xs={12} sm={5}>
               <p className={styles.productDetailsTitle}>Υποσύνολο</p>
