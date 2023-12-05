@@ -105,12 +105,8 @@ export default function Cart() {
     totalPriceWines + totalPriceIsWineInBoxWines + totalPriceTastings;
 
   const taxAmount = discount
-    ? calculateTax(
-        discountedPrice + totalPriceIsWineInBoxWines + totalPriceTastings
-      )
-    : calculateTax(
-        totalPriceWines + totalPriceIsWineInBoxWines + totalPriceTastings
-      );
+    ? calculateTax(discountedPrice)
+    : calculateTax(totalPriceWines);
 
   const total = discount
     ? discountedPrice +
@@ -121,6 +117,8 @@ export default function Cart() {
       totalPriceIsWineInBoxWines +
       totalPriceTastings +
       (businessWinesChecked ? taxAmount : 0);
+
+  const onlyWineInBox = winesInCart.every((wine) => wine.isWineInBox);
 
   const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setComment(event.target.value);
@@ -251,7 +249,7 @@ export default function Cart() {
                   </p>
                 </div>
               )}
-              {businessWinesChecked && (
+              {businessWinesChecked && !onlyWineInBox && (
                 <div className={styles.invoiceDetailWrapper}>
                   <p className={styles.invoiceDetailTitle}>ΦΠΑ (24%)</p>
                   <p className={styles.invoiceDetailAmount}>
