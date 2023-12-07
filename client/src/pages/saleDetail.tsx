@@ -63,13 +63,13 @@ export default function SaleDetail() {
               <p>{dayjs(sale?.date).format("HH:mm")}</p>
             </Grid>
           </Grid>
-          <Grid container sx={{ marginTop: "8px", marginBottom: "8px" }}>
+          <Grid container>
             <Grid item xs={12} sm={5}>
               <p className={styles.productDetailsTitle}>Προϊόντα</p>
             </Grid>
             <Grid item xs={12} sm={7}>
               {sale && sale?.wines?.length > 0 && (
-                <>
+                <div className={styles.productsInfoWrapper}>
                   {sale?.wines?.map((wine: Wine) => (
                     <div className={styles.productDetails} key={wine.id}>
                       <p className={styles.wineDetailsLeft}>
@@ -103,7 +103,7 @@ export default function SaleDetail() {
                       )}
                     </div>
                   ))}
-                </>
+                </div>
               )}
               {sale && sale?.wineTastings?.length > 0 && (
                 <>
@@ -142,16 +142,6 @@ export default function SaleDetail() {
               </Grid>
             </Grid>
           )}
-          <Grid container sx={{ marginTop: "8px" }}>
-            <Grid item xs={12} sm={5}>
-              <p className={styles.productDetailsTotalTitle}>Σύνολο</p>
-            </Grid>
-            <Grid item xs={12} sm={7}>
-              <p className={styles.productDetailsTotal}>
-                {sale && formatPrice(sale?.total)} €
-              </p>
-            </Grid>
-          </Grid>
           {sale?.comment && (
             <Grid container>
               <Grid item xs={12} sm={5}>
@@ -162,6 +152,16 @@ export default function SaleDetail() {
               </Grid>
             </Grid>
           )}
+          <Grid container>
+            <Grid item xs={12} sm={5}>
+              <p className={styles.productDetailsTotalTitle}>Σύνολο</p>
+            </Grid>
+            <Grid item xs={12} sm={7}>
+              <p className={styles.productDetailsTotal}>
+                {sale && formatPrice(sale?.total)} €
+              </p>
+            </Grid>
+          </Grid>
         </Grid>
       )}
     </main>

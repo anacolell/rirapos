@@ -10,9 +10,15 @@ type CartItemProps = {
   id: string;
   quantity: number;
   discount: number | null;
+  noDelete?: boolean;
 };
 
-export default function CartItem({ id, quantity, discount }: CartItemProps) {
+export default function CartItem({
+  id,
+  quantity,
+  discount,
+  noDelete,
+}: CartItemProps) {
   const { removeFromCart, businessWinesChecked } = useCart();
   const wineList = businessWinesChecked ? winesBusiness : wines;
   const item = wineList.find((i) => i.id === id);
@@ -57,12 +63,14 @@ export default function CartItem({ id, quantity, discount }: CartItemProps) {
         ) : (
           <p>{totalItemPriceFormatted} €</p>
         )}
-        <button
-          className={styles.deleteBtn}
-          onClick={() => item?.id && removeFromCart(item.id)}
-        >
-          &times;
-        </button>
+        {!noDelete && (
+          <button
+            className={styles.deleteBtn}
+            onClick={() => item?.id && removeFromCart(item.id)}
+          >
+            &times;
+          </button>
+        )}
       </div>
     </Grid>
   );

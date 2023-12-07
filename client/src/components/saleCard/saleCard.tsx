@@ -2,12 +2,13 @@ import dayjs from "dayjs";
 import { formatPrice } from "../../utils/utils";
 import { Card, CardContent, Grid, IconButton } from "@mui/material";
 import styles from "./saleCard.module.css";
-import { Delete, Visibility } from "@mui/icons-material";
+import { Delete, Edit, Visibility } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { deleteSale } from "../../api/deleteSale";
 import { useState } from "react";
 import ConfirmationDialog from "../confirmDialog/confirmDialog";
 import { Sale } from "../../types/types";
+import EditDialog from "../editDialog/editDialog";
 
 type SaleCardProps = {
   sale: Sale;
@@ -17,9 +18,14 @@ type SaleCardProps = {
 
 export default function SaleCard({ sale, sales, setSales }: SaleCardProps) {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [isEditDialogOpen, setEditDialogOpen] = useState(false);
 
   const handleDeleteClick = () => {
     setDeleteDialogOpen(true);
+  };
+
+  const handleEditClick = () => {
+    setEditDialogOpen(true);
   };
 
   const handleDeleteConfirm = async () => {
@@ -85,6 +91,9 @@ export default function SaleCard({ sale, sales, setSales }: SaleCardProps) {
                   <Visibility />
                 </IconButton>
               </Link>
+              <IconButton onClick={handleEditClick}>
+                <Edit />
+              </IconButton>
               <IconButton onClick={handleDeleteClick}>
                 <Delete />
               </IconButton>
@@ -98,6 +107,13 @@ export default function SaleCard({ sale, sales, setSales }: SaleCardProps) {
         onConfirm={handleDeleteConfirm}
         title="Διαγραφή Πώλησης"
         description="Είστε σίγουρος/η ότι θέλετε να διαγράψετε αυτή την πώληση;"
+      />
+      <EditDialog
+        open={isEditDialogOpen}
+        title="Επεξεργασία πώλησης"
+        sale={sale}
+        setEditDialogOpen={setEditDialogOpen}
+        setSales={setSales}
       />
     </>
   );
