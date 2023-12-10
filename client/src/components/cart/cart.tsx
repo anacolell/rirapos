@@ -8,6 +8,7 @@ import {
   calculateDiscount,
   calculateTax,
   formatPrice,
+  getWineType,
 } from "../../utils/utils";
 import { useState } from "react";
 import {
@@ -57,6 +58,7 @@ export default function Cart() {
       wineType: fullWineData?.wineType || "",
       quantity: cartItem.quantity || 0,
       isWineInBox: fullWineData?.isWineInBox || false,
+      volume: fullWineData?.volume || 0,
     };
   });
 
@@ -138,9 +140,19 @@ export default function Cart() {
 
   const handleCreateSale = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
+      const updatedWinesInCart = winesInCart.map((wine) => {
+        if (wine.isWineInBox) {
+          const updatedTitle = `${wine.title} ${wine.volume}Lt, ${getWineType(
+            wine.wineType
+          )}`;
+          return { ...wine, title: updatedTitle };
+        }
+        return wine;
+      });
       createSale(
-        winesInCart,
+        updatedWinesInCart,
         wineTastings,
         discount,
         discountDifference,

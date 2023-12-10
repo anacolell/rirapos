@@ -82,7 +82,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
               noDelete
             />
           ))}
-          {sale.wineTastings.map((wineTasting) => (
+          {updatedSale.wineTastings.map((wineTasting) => (
             <WineTastingItem key={wineTasting.id} {...wineTasting} />
           ))}
         </Grid>

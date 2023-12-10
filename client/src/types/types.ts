@@ -37,6 +37,7 @@ export type Wine = {
   year: string;
   price: number;
   wineType: string;
-  quantity?: number;
+  volume?: number;
   isWineInBox?: boolean;
+  quantity?: number;
 };

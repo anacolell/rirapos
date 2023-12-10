@@ -25,3 +25,13 @@ export function calculateAndFormatDiscountedPrice(
   const finalPrice = quantity * price - discountedAmount;
   return formatPrice(finalPrice);
 }
+
+export function getWineType(wineType: string) {
+  if (wineType === "red") {
+    return "Ερυθρός";
+  } else if (wineType === "white") {
+    return "Λευκός";
+  } else {
+    return "Ροζέ";
+  }
+}
