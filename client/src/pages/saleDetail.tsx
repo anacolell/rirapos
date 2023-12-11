@@ -48,30 +48,37 @@ export default function SaleDetail() {
           }}
         >
           <Grid container>
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={5} sm={5}>
               <p className={styles.productDetailsTitle}>Ημερομηνία</p>
             </Grid>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={7} sm={7}>
               <p>{dayjs(sale?.date).format("DD/MM/YYYY")}</p>
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={5} sm={5}>
               <p className={styles.productDetailsTitle}>Ώρα</p>
             </Grid>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={7} sm={7}>
               <p>{dayjs(sale?.date).format("HH:mm")}</p>
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={5} sm={5}>
               <p className={styles.productDetailsTitle}>Προϊόντα</p>
             </Grid>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={7} sm={7}>
               {sale && sale?.wines?.length > 0 && (
                 <div className={styles.productsInfoWrapper}>
                   {sale?.wines?.map((wine: Wine) => (
-                    <div className={styles.productDetails} key={wine.id}>
+                    <div
+                      className={styles.productDetails}
+                      key={wine.id}
+                      style={{
+                        minWidth: "100%",
+                        overflowWrap: "break-word",
+                      }}
+                    >
                       <p className={styles.wineDetailsLeft}>
                         {wine.title}
                         <span className={styles.productQuantity}>
@@ -123,40 +130,40 @@ export default function SaleDetail() {
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={5} sm={5}>
               <p className={styles.productDetailsTitle}>Υποσύνολο</p>
             </Grid>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={7} sm={7}>
               <p>{sale && formatPrice(sale?.subtotal)} €</p>
             </Grid>
           </Grid>
           {sale?.discount && (
             <Grid container>
-              <Grid item xs={12} sm={5}>
+              <Grid item xs={5} sm={5}>
                 <p className={styles.productDetailsTitle}>
                   Έκπτωση ({sale?.discount}%)
                 </p>
               </Grid>
-              <Grid item xs={12} sm={7}>
+              <Grid item xs={7} sm={7}>
                 <p>{formatPrice(sale?.discountDifference)} €</p>
               </Grid>
             </Grid>
           )}
           {sale?.comment && (
             <Grid container>
-              <Grid item xs={12} sm={5}>
+              <Grid item xs={5} sm={5}>
                 <p className={styles.productDetailsTitle}>Σχόλια</p>
               </Grid>
-              <Grid item xs={12} sm={7}>
+              <Grid item xs={7} sm={7}>
                 <p>{sale?.comment}</p>
               </Grid>
             </Grid>
           )}
           <Grid container>
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={5} sm={5}>
               <p className={styles.productDetailsTotalTitle}>Σύνολο</p>
             </Grid>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={7} sm={7}>
               <p className={styles.productDetailsTotal}>
                 {sale && formatPrice(sale?.total)} €
               </p>
