@@ -3,7 +3,7 @@ import { useCart } from "../../context/cartContext";
 import { wines } from "../../data/wines";
 import { winesBusiness } from "../../data/winesBusiness";
 import styles from "./cartItem.module.css";
-import { calculateDiscount, formatPrice } from "../../utils/utils";
+import { calculateDiscount, formatPrice, getWineType } from "../../utils/utils";
 import { Package } from "react-feather";
 
 type CartItemProps = {
@@ -44,7 +44,11 @@ export default function CartItem({
         )}
         <div className={styles.itemInfoWrapper}>
           <p className={styles.itemTitle}>
-            {item?.title}
+            {item?.isWineInBox
+              ? `${item?.title} ${item?.volume}Lt, ${getWineType(
+                  item?.wineType
+                )}`
+              : item?.title}
             {quantity > 1 && (
               <span className={styles.itemQuantity}>x{quantity}</span>
             )}
