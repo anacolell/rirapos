@@ -23,6 +23,7 @@ app.post("/sales", async (req: Request, res: Response) => {
   console.log("Received request body:", req.body);
 
   const newSale = new Sale(req.body);
+
   try {
     const createdSale = await newSale.save();
     res.json(createdSale);
@@ -40,6 +41,24 @@ app.delete("/sales/:saleId", async (req: Request, res: Response) => {
     res.json(sale);
   } catch (error) {
     console.error("Error deleting sale:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.put("/sales/:saleId", async (req: Request, res: Response) => {
+  try {
+    const saleId = req.params.saleId;
+    const updatedSale = await Sale.findByIdAndUpdate(saleId, req.body, {
+      new: true,
+    });
+
+    if (!updatedSale) {
+      return res.status(404).json({ error: "Sale not found" });
+    }
+
+    res.json(updatedSale);
+  } catch (error) {
+    console.error("Error updating sale:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

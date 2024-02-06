@@ -5,20 +5,8 @@ import { CircularProgress, Grid } from "@mui/material";
 import dayjs from "dayjs";
 import { calculateAndFormatDiscountedPrice, formatPrice } from "../utils/utils";
 import { ArrowBackIos } from "@mui/icons-material";
-import { Sale } from "./salesList";
-import { WineTasting } from "../context/cartContext";
 import { getSales } from "../api/getSales";
-
-export type Wine = {
-  id: string;
-  img: string;
-  title: string;
-  year: string;
-  price: number;
-  wineType: string;
-  quantity: number;
-  isWineInBox: boolean;
-};
+import { Sale, Wine, WineTasting } from "../types/types";
 
 export default function SaleDetail() {
   const { saleId } = useParams();
@@ -60,30 +48,37 @@ export default function SaleDetail() {
           }}
         >
           <Grid container>
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={5} sm={5}>
               <p className={styles.productDetailsTitle}>Ημερομηνία</p>
             </Grid>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={7} sm={7}>
               <p>{dayjs(sale?.date).format("DD/MM/YYYY")}</p>
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={5} sm={5}>
               <p className={styles.productDetailsTitle}>Ώρα</p>
             </Grid>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={7} sm={7}>
               <p>{dayjs(sale?.date).format("HH:mm")}</p>
             </Grid>
           </Grid>
-          <Grid container sx={{ marginTop: "8px", marginBottom: "8px" }}>
-            <Grid item xs={12} sm={5}>
+          <Grid container>
+            <Grid item xs={5} sm={5}>
               <p className={styles.productDetailsTitle}>Προϊόντα</p>
             </Grid>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={7} sm={7}>
               {sale && sale?.wines?.length > 0 && (
-                <>
+                <div className={styles.productsInfoWrapper}>
                   {sale?.wines?.map((wine: Wine) => (
-                    <div className={styles.productDetails} key={wine.id}>
+                    <div
+                      className={styles.productDetails}
+                      key={wine.id}
+                      style={{
+                        minWidth: "100%",
+                        overflowWrap: "break-word",
+                      }}
+                    >
                       <p className={styles.wineDetailsLeft}>
                         {wine.title}
                         <span className={styles.productQuantity}>
@@ -93,11 +88,13 @@ export default function SaleDetail() {
                       {sale.discount && !wine.isWineInBox ? (
                         <div className={styles.discountedPriceWrapper}>
                           <p className={styles.totalItemPriceCrossed}>
-                            {formatPrice(wine.quantity * wine.price)} €
+                            {wine.quantity &&
+                              formatPrice(wine.quantity * wine.price)}
+                            €
                           </p>
                           <p>
                             {calculateAndFormatDiscountedPrice(
-                              wine.quantity,
+                              wine.quantity || 0,
                               wine.price,
                               sale.discount
                             )}
@@ -105,11 +102,15 @@ export default function SaleDetail() {
                           </p>
                         </div>
                       ) : (
-                        <p>{formatPrice(wine.quantity * wine.price)} €</p>
+                        <p>
+                          {wine.quantity &&
+                            formatPrice(wine.quantity * wine.price)}
+                          €
+                        </p>
                       )}
                     </div>
                   ))}
-                </>
+                </div>
               )}
               {sale && sale?.wineTastings?.length > 0 && (
                 <>
@@ -128,47 +129,46 @@ export default function SaleDetail() {
               )}
             </Grid>
           </Grid>
-
           <Grid container>
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={5} sm={5}>
               <p className={styles.productDetailsTitle}>Υποσύνολο</p>
             </Grid>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={7} sm={7}>
               <p>{sale && formatPrice(sale?.subtotal)} €</p>
             </Grid>
           </Grid>
           {sale?.discount && (
             <Grid container>
-              <Grid item xs={12} sm={5}>
+              <Grid item xs={5} sm={5}>
                 <p className={styles.productDetailsTitle}>
                   Έκπτωση ({sale?.discount}%)
                 </p>
               </Grid>
-              <Grid item xs={12} sm={7}>
+              <Grid item xs={7} sm={7}>
                 <p>{formatPrice(sale?.discountDifference)} €</p>
               </Grid>
             </Grid>
           )}
-          <Grid container sx={{ marginTop: "8px" }}>
-            <Grid item xs={12} sm={5}>
+          {sale?.comment && (
+            <Grid container>
+              <Grid item xs={5} sm={5}>
+                <p className={styles.productDetailsTitle}>Σχόλια</p>
+              </Grid>
+              <Grid item xs={7} sm={7}>
+                <p>{sale?.comment}</p>
+              </Grid>
+            </Grid>
+          )}
+          <Grid container>
+            <Grid item xs={5} sm={5}>
               <p className={styles.productDetailsTotalTitle}>Σύνολο</p>
             </Grid>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={7} sm={7}>
               <p className={styles.productDetailsTotal}>
                 {sale && formatPrice(sale?.total)} €
               </p>
             </Grid>
           </Grid>
-          {sale?.comment && (
-            <Grid container>
-              <Grid item xs={12} sm={5}>
-                <p className={styles.productDetailsTitle}>Σχόλια</p>
-              </Grid>
-              <Grid item xs={12} sm={7}>
-                <p>{sale?.comment}</p>
-              </Grid>
-            </Grid>
-          )}
         </Grid>
       )}
     </main>

@@ -19,31 +19,7 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { getSales } from "../api/getSales";
-
-export type Sale = {
-  _id: string;
-  wineTastings: [{ price: number; id: string; quantity: number }];
-  wines: [
-    {
-      id: string;
-      title: string;
-      img: string;
-      year: string;
-      price: number;
-      quantity: number;
-      isWineInBox: boolean;
-      wineType: string;
-      date: Date;
-    }
-  ];
-  total: number;
-  subtotal: number;
-  discount: number;
-  discountAmount: number;
-  discountDifference: number;
-  comment: string;
-  date: Date;
-};
+import { Sale } from "../types/types";
 
 export default function SalesList() {
   const [sales, setSales] = useState<Sale[]>([]);
@@ -55,6 +31,9 @@ export default function SalesList() {
   const [sortField, setSortField] = useState<
     "date" | "product" | "comment" | "total"
   >("date");
+  const [isWineBusinessFilter, setIsWineBusinessFilter] =
+    useState<boolean>(false);
+  const [isRetailFilter, setIsRetailFilter] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchSales() {
@@ -66,7 +45,15 @@ export default function SalesList() {
   }, []);
 
   const filteredSales = sales.filter((sale) => {
-    return sale.comment.toLowerCase().includes(searchInput.toLowerCase());
+    const commentMatch = sale.comment
+      .toLowerCase()
+      .includes(searchInput.toLowerCase());
+
+    const isWineBusinessMatch = !isWineBusinessFilter || sale.isBusiness;
+
+    const isWineRetailMatch = !isRetailFilter || !sale.isBusiness;
+
+    return commentMatch && isWineBusinessMatch && isWineRetailMatch;
   });
 
   const sortedSales = [...filteredSales].sort((a, b) => {
@@ -234,9 +221,27 @@ export default function SalesList() {
                   <Close />
                 </IconButton>
               </div>
-              <h3 className={styles.drawerTitle}>Arrangement:</h3>
-              <h3 className={styles.drawerTitle}>Filter by:</h3>
-              <h4 className={styles.drawerSubTitle}>Role</h4>
+              <h3 className={styles.drawerTitle}>Φίλτρα:</h3>
+              <div className={styles.filtersBox}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={isRetailFilter}
+                    onChange={() => setIsRetailFilter(!isRetailFilter)}
+                  />
+                  Λιανική
+                </label>
+                <label className={styles.filterRight}>
+                  <input
+                    type="checkbox"
+                    checked={isWineBusinessFilter}
+                    onChange={() =>
+                      setIsWineBusinessFilter(!isWineBusinessFilter)
+                    }
+                  />
+                  Χονδρική
+                </label>
+              </div>
             </Drawer>
           </>
         )}

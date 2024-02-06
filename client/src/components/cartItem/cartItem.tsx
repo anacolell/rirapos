@@ -3,16 +3,22 @@ import { useCart } from "../../context/cartContext";
 import { wines } from "../../data/wines";
 import { winesBusiness } from "../../data/winesBusiness";
 import styles from "./cartItem.module.css";
-import { calculateDiscount, formatPrice } from "../../utils/utils";
+import { calculateDiscount, formatPrice, getWineType } from "../../utils/utils";
 import { Package } from "react-feather";
 
 type CartItemProps = {
   id: string;
   quantity: number;
   discount: number | null;
+  noDelete?: boolean;
 };
 
-export default function CartItem({ id, quantity, discount }: CartItemProps) {
+export default function CartItem({
+  id,
+  quantity,
+  discount,
+  noDelete,
+}: CartItemProps) {
   const { removeFromCart, businessWinesChecked } = useCart();
   const wineList = businessWinesChecked ? winesBusiness : wines;
   const item = wineList.find((i) => i.id === id);
@@ -38,7 +44,11 @@ export default function CartItem({ id, quantity, discount }: CartItemProps) {
         )}
         <div className={styles.itemInfoWrapper}>
           <p className={styles.itemTitle}>
-            {item?.title}
+            {item?.isWineInBox
+              ? `${item?.title} ${item?.volume}Lt, ${getWineType(
+                  item?.wineType
+                )}`
+              : item?.title}
             {quantity > 1 && (
               <span className={styles.itemQuantity}>x{quantity}</span>
             )}
@@ -57,12 +67,14 @@ export default function CartItem({ id, quantity, discount }: CartItemProps) {
         ) : (
           <p>{totalItemPriceFormatted} €</p>
         )}
-        <button
-          className={styles.deleteBtn}
-          onClick={() => item?.id && removeFromCart(item.id)}
-        >
-          &times;
-        </button>
+        {!noDelete && (
+          <button
+            className={styles.deleteBtn}
+            onClick={() => item?.id && removeFromCart(item.id)}
+          >
+            &times;
+          </button>
+        )}
       </div>
     </Grid>
   );

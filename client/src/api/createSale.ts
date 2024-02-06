@@ -1,5 +1,4 @@
-import { WineTasting } from "../context/cartContext";
-import { Wine } from "../pages/saleDetail";
+import { Wine, WineTasting } from "../types/types";
 import { API_URL } from "./config";
 
 export const createSale = async (
@@ -9,7 +8,8 @@ export const createSale = async (
   discountDifference: number,
   subtotal: number,
   total: number,
-  comment: string
+  comment: string,
+  isBusiness: boolean
 ) => {
   try {
     const response = await fetch(`${API_URL}/sales`, {
@@ -23,6 +23,7 @@ export const createSale = async (
         total: total,
         comment: comment,
         date: new Date(),
+        isBusiness: isBusiness,
       }),
       headers: {
         "Content-Type": "application/json",

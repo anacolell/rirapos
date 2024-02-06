@@ -8,6 +8,7 @@ import {
   calculateDiscount,
   calculateTax,
   formatPrice,
+  getWineType,
 } from "../../utils/utils";
 import { useState } from "react";
 import {
@@ -17,14 +18,14 @@ import {
 } from "@mui/icons-material";
 import WineTastingItem from "../wineTastingItem/wineTastingItem";
 import { createSale } from "../../api/createSale";
-import { Wine } from "../../pages/saleDetail";
 import CustomSnackbar from "../customSnackbar/customSnackbar";
+import { Wine } from "../../types/types";
 
 export default function Cart() {
   const { cartItems, wineTastings, resetFields, businessWinesChecked } =
     useCart();
 
-  const wineList = businessWinesChecked ? winesBusiness : wines;
+  const wineList: Wine[] = businessWinesChecked ? winesBusiness : wines;
 
   const [discountAmount, setDiscountAmount] = useState("");
   const [discount, setDiscount] = useState("");
@@ -55,8 +56,9 @@ export default function Cart() {
       year: fullWineData?.year || "",
       price: fullWineData?.price || 0,
       wineType: fullWineData?.wineType || "",
-      quantity: cartItem.quantity,
+      quantity: cartItem.quantity || 0,
       isWineInBox: fullWineData?.isWineInBox || false,
+      volume: fullWineData?.volume || 0,
     };
   });
 
@@ -105,12 +107,8 @@ export default function Cart() {
     totalPriceWines + totalPriceIsWineInBoxWines + totalPriceTastings;
 
   const taxAmount = discount
-    ? calculateTax(
-        discountedPrice + totalPriceIsWineInBoxWines + totalPriceTastings
-      )
-    : calculateTax(
-        totalPriceWines + totalPriceIsWineInBoxWines + totalPriceTastings
-      );
+    ? calculateTax(discountedPrice)
+    : calculateTax(totalPriceWines);
 
   const total = discount
     ? discountedPrice +
@@ -121,6 +119,8 @@ export default function Cart() {
       totalPriceIsWineInBoxWines +
       totalPriceTastings +
       (businessWinesChecked ? taxAmount : 0);
+
+  const onlyWineInBox = winesInCart.every((wine) => wine.isWineInBox);
 
   const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setComment(event.target.value);
@@ -140,15 +140,26 @@ export default function Cart() {
 
   const handleCreateSale = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
+      const updatedWinesInCart = winesInCart.map((wine) => {
+        if (wine.isWineInBox) {
+          const updatedTitle = `${wine.title} ${wine.volume}Lt, ${getWineType(
+            wine.wineType
+          )}`;
+          return { ...wine, title: updatedTitle };
+        }
+        return wine;
+      });
       createSale(
-        winesInCart,
+        updatedWinesInCart,
         wineTastings,
         discount,
         discountDifference,
         subtotal,
         total,
-        comment
+        comment,
+        businessWinesChecked
       );
       setSnackbarMessage("Η πώληση αποθηκεύτηκε με επιτυχία");
       setSnackbarSeverity("success");
@@ -250,7 +261,7 @@ export default function Cart() {
                   </p>
                 </div>
               )}
-              {businessWinesChecked && (
+              {businessWinesChecked && !onlyWineInBox && (
                 <div className={styles.invoiceDetailWrapper}>
                   <p className={styles.invoiceDetailTitle}>ΦΠΑ (24%)</p>
                   <p className={styles.invoiceDetailAmount}>

@@ -1,13 +1,12 @@
 import React from "react";
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-
+import styles from "./confirmDialog.module.css";
 type ConfirmationDialogProps = {
   open: boolean;
   onClose: () => void;
@@ -35,13 +34,24 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
         <DialogContentText id="alert-dialog-description">
           {description}
         </DialogContentText>
+        <DialogActions
+          sx={{ paddingRight: 0, paddingLeft: 0, paddingTop: "12px" }}
+        >
+          <button
+            onClick={onClose}
+            className={`${styles.button} ${styles.cancelButton}`}
+          >
+            Ακύρωση
+          </button>
+          <button
+            onClick={onConfirm}
+            autoFocus
+            className={`${styles.button} ${styles.confirmButton}`}
+          >
+            Επιβεβαίωση
+          </button>
+        </DialogActions>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Ακύρωση</Button>
-        <Button onClick={onConfirm} autoFocus>
-          Επιβεβαίωση
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 };

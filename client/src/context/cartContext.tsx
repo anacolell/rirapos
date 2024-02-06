@@ -1,14 +1,9 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import { generateUniqueId } from "../utils/utils";
+import { WineTasting } from "../types/types";
 
 type CartProviderProps = {
   children: ReactNode;
-};
-
-export type WineTasting = {
-  id: string;
-  price: number;
-  quantity: number;
 };
 
 type CartContext = {

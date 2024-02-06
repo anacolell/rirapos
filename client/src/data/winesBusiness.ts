@@ -107,7 +107,7 @@ export const winesBusiness = [
   {
     id: "14",
     title: "Ασκός",
-    quantity: 5,
+    volume: 5,
     year: "2022",
     price: 10,
     wineType: "white",
@@ -116,7 +116,7 @@ export const winesBusiness = [
   {
     id: "15",
     title: "Ασκός",
-    quantity: 5,
+    volume: 5,
     year: "2022",
     price: 10,
     wineType: "red",
@@ -125,7 +125,7 @@ export const winesBusiness = [
   {
     id: "16",
     title: "Ασκός",
-    quantity: 5,
+    volume: 5,
     year: "2022",
     price: 10,
     wineType: "rose",
@@ -134,7 +134,7 @@ export const winesBusiness = [
   {
     id: "17",
     title: "Ασκός",
-    quantity: 10,
+    volume: 10,
     year: "2022",
     price: 20,
     wineType: "white",
@@ -143,7 +143,7 @@ export const winesBusiness = [
   {
     id: "18",
     title: "Ασκός",
-    quantity: 10,
+    volume: 10,
     year: "2022",
     price: 20,
     wineType: "red",
@@ -152,7 +152,7 @@ export const winesBusiness = [
   {
     id: "19",
     title: "Ασκός",
-    quantity: 10,
+    volume: 10,
     year: "2022",
     price: 20,
     wineType: "rose",

@@ -1,10 +1,10 @@
 .detailsPageWrapper {
-  padding: 100px 70px;
+  padding: 60px 18px;
 }
 
 .detailsContainer {
   background-color: #fff;
-  padding: 72px;
+  padding: 18px;
   border-radius: 8px;
 }
 
@@ -24,20 +24,20 @@
 .detailsContainer p {
   margin: 0;
   margin-bottom: 20px;
-  font-weight: 500;
 }
 
 .productDetailsTitle {
   color: #666464;
-}
-
-.productDetailsTotal {
-  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .productDetailsTotalTitle {
   color: #666464;
-  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.productDetailsTotal {
+  font-weight: 800;
 }
 
 .productQuantity {
@@ -47,7 +47,7 @@
 
 .productDetails {
   display: flex;
-  width: 220px;
+  min-width: 220px;
   justify-content: space-between;
 }
 
@@ -70,4 +70,14 @@
   justify-content: center;
   width: 100%;
   margin-top: 128px;
+}
+
+@media screen and (min-width: 768px) {
+  .detailsContainer {
+    padding: 72px;
+  }
+
+  .detailsPageWrapper {
+    padding: 100px 70px;
+  }
 }

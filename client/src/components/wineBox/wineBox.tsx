@@ -2,18 +2,8 @@ import { Grid } from "@mui/material";
 import styles from "./wineBox.module.css";
 import { useCart } from "../../context/cartContext";
 import { Package } from "react-feather";
-import { formatPrice } from "../../utils/utils";
-
-interface Wine {
-  id: string;
-  title: string;
-  img?: string;
-  year: string;
-  price: number;
-  wineType: string;
-  quantity?: number;
-  isWineInBox?: boolean;
-}
+import { formatPrice, getWineType } from "../../utils/utils";
+import { Wine } from "../../types/types";
 
 export default function WineBox({ wine }: { wine: Wine }) {
   const {
@@ -25,15 +15,7 @@ export default function WineBox({ wine }: { wine: Wine }) {
 
   const quantity = getItemQuantity(wine.id);
 
-  let wineType;
-
-  if (wine.wineType === "red") {
-    wineType = "Ερυθρός";
-  } else if (wine.wineType === "white") {
-    wineType = "Λευκός";
-  } else {
-    wineType = "Ροζέ";
-  }
+  const wineType = getWineType(wine.wineType);
 
   return (
     <Grid item xs={12} sm={4} key={wine.id}>
@@ -67,7 +49,7 @@ export default function WineBox({ wine }: { wine: Wine }) {
                 {wine.title} {!wine.isWineInBox && wine.year}
               </p>
               <p className={styles.wineInBoxSubTitle}>
-                {wine.quantity} Lt, {wineType}
+                {wine.volume} Lt, {wineType}
               </p>
             </div>
           ) : (

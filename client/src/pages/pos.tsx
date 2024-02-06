@@ -61,7 +61,7 @@ export default function Pos() {
               <WineBox key={wine.id} wine={wine} />
             ))}
           </Grid>
-          <WineTastingForm />
+          {!businessWinesChecked && <WineTastingForm />}
         </Grid>
         <Grid item xs={12} lg={4} style={{ paddingTop: "42px" }}>
           <Cart />
