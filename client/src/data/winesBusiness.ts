@@ -77,7 +77,7 @@ export const winesBusiness = [
     img: "Metabash_2020.png",
     title: "Μετάβαση",
     year: "2020",
-    price: 1,
+    price: 10,
     wineType: "red",
   },
   {

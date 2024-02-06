@@ -12,7 +12,7 @@ export const wines = [
     img: "Desmos_2022.png",
     title: "Δεσμός",
     year: "2022",
-    price: 8.2,
+    price: 7.8,
     wineType: "white",
   },
   {
@@ -20,7 +20,7 @@ export const wines = [
     img: "Desmos_2020.png",
     title: "Δεσμός",
     year: "2022",
-    price: 7.8,
+    price: 8.2,
     wineType: "red",
   },
   {
