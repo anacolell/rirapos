@@ -74,9 +74,9 @@ export const winesBusiness = [
 
   {
     id: "10",
-    img: "Metabash_2020.png",
+    img: "metabash_2022.png",
     title: "Μετάβαση",
-    year: "2020",
+    year: "2022",
     price: 18,
     wineType: "red",
   },
@@ -106,6 +106,7 @@ export const winesBusiness = [
   },
   {
     id: "14",
+    img: "assyrtiko_2022.png",
     title: "Assyrtiko",
     year: "2022",
     price: 9.9,
