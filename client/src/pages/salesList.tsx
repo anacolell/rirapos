@@ -20,6 +20,8 @@ import {
 import { Link } from "react-router-dom";
 import { getSales } from "../api/getSales";
 import { Sale } from "../types/types";
+import { DatePicker } from "antd";
+import dayjs from "dayjs";
 
 export default function SalesList() {
   const [sales, setSales] = useState<Sale[]>([]);
@@ -34,6 +36,11 @@ export default function SalesList() {
   const [isWineBusinessFilter, setIsWineBusinessFilter] =
     useState<boolean>(false);
   const [isRetailFilter, setIsRetailFilter] = useState<boolean>(false);
+  const { RangePicker } = DatePicker;
+  const [dateRange, setDateRange] = useState<
+    [dayjs.Dayjs | null, dayjs.Dayjs | null]
+  >([null, null]);
+  const [showAllSales, setShowAllSales] = useState(false);
 
   useEffect(() => {
     async function fetchSales() {
@@ -48,12 +55,15 @@ export default function SalesList() {
     const commentMatch = sale.comment
       .toLowerCase()
       .includes(searchInput.toLowerCase());
-
     const isWineBusinessMatch = !isWineBusinessFilter || sale.isBusiness;
-
     const isWineRetailMatch = !isRetailFilter || !sale.isBusiness;
+    const dateMatch =
+      (!dateRange[0] || dayjs(sale.date).isAfter(dateRange[0], "day")) &&
+      (!dateRange[1] || dayjs(sale.date).isBefore(dateRange[1], "day"));
 
-    return commentMatch && isWineBusinessMatch && isWineRetailMatch;
+    return (
+      commentMatch && isWineBusinessMatch && isWineRetailMatch && dateMatch
+    );
   });
 
   const sortedSales = [...filteredSales].sort((a, b) => {
@@ -67,8 +77,17 @@ export default function SalesList() {
     }
   });
 
-  const filteredSalesShown = sortedSales.slice(0, numSalesDisplayed);
+  const filteredSalesShown = showAllSales
+    ? sortedSales
+    : sortedSales.slice(0, numSalesDisplayed);
 
+  const handleViewAllSales = () => {
+    if (showAllSales) {
+      setShowAllSales(false);
+    } else {
+      setShowAllSales(true);
+    }
+  };
   function handleFiltersDrawerOpen() {
     setIsFiltersDrawerOpen(true);
   }
@@ -91,6 +110,10 @@ export default function SalesList() {
       return sortOrder === "asc" ? <ArrowDropUp /> : <ArrowDropDown />;
     }
     return null;
+  };
+
+  const getTotalDisplayedSales = () => {
+    return filteredSalesShown.reduce((total, sale) => total + sale.total, 0);
   };
 
   return (
@@ -141,6 +164,11 @@ export default function SalesList() {
                 >
                   <Tune />
                 </IconButton>
+                <RangePicker
+                  style={{ marginLeft: "16px", height: "40px" }}
+                  onChange={(dates) => setDateRange(dates || [null, null])}
+                  format="YYYY-MM-DD"
+                />
               </Grid>
               <Grid container className={styles.list}>
                 <Grid container className={styles.tableHead}>
@@ -202,11 +230,24 @@ export default function SalesList() {
                     />
                   </Grid>
                 ))}
-                <button
-                  className={styles.button}
-                  onClick={() => setNumSalesDisplayed(numSalesDisplayed + 10)}
-                >
-                  Δείτε περισσότερα
+                <div className={styles.totalWrapper}>
+                  <p>
+                    <span>Σύνολο πωλήσεων:</span>{" "}
+                    <span className={styles.totalAmount}>
+                      {getTotalDisplayedSales().toFixed(2)}€{" "}
+                    </span>
+                  </p>
+                </div>
+                {!showAllSales && (
+                  <button
+                    className={styles.button}
+                    onClick={() => setNumSalesDisplayed(numSalesDisplayed + 10)}
+                  >
+                    Δείτε περισσότερα
+                  </button>
+                )}
+                <button className={styles.button} onClick={handleViewAllSales}>
+                  {showAllSales ? "Εμφάνιση λιγότερων" : "Εμφάνιση όλων"}
                 </button>
               </Grid>
             </Grid>
