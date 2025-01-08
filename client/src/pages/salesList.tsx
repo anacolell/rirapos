@@ -42,6 +42,10 @@ export default function SalesList() {
   >([null, null]);
   const [showAllSales, setShowAllSales] = useState(false);
 
+  function removeAccents(str: string): string {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
   useEffect(() => {
     async function fetchSales() {
       const newSales = await getSales();
@@ -52,9 +56,9 @@ export default function SalesList() {
   }, []);
 
   const filteredSales = sales.filter((sale) => {
-    const commentMatch = sale.comment
+    const commentMatch = removeAccents(sale.comment)
       .toLowerCase()
-      .includes(searchInput.toLowerCase());
+      .includes(removeAccents(searchInput).toLowerCase());
     const isWineBusinessMatch = !isWineBusinessFilter || sale.isBusiness;
     const isWineRetailMatch = !isRetailFilter || !sale.isBusiness;
     const dateMatch =
