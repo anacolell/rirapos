@@ -35,3 +35,13 @@ export function getWineType(wineType: string) {
     return "Ροζέ";
   }
 }
+
+export function getColor(wineType: string) {
+  if (wineType === "red") {
+    return "#7F0F2A";
+  } else if (wineType === "white") {
+    return "#EECF78";
+  } else {
+    return "#D66799";
+  }
+}

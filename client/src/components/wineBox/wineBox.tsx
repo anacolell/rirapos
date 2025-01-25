@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import styles from "./wineBox.module.css";
 import { useCart } from "../../context/cartContext";
 import { Package } from "react-feather";
-import { formatPrice, getWineType } from "../../utils/utils";
+import { formatPrice, getColor, getWineType } from "../../utils/utils";
 import { Wine } from "../../types/types";
 
 export default function WineBox({ wine }: { wine: Wine }) {
@@ -32,6 +32,7 @@ export default function WineBox({ wine }: { wine: Wine }) {
               marginTop: "60px",
               marginBottom: "60px",
               fontWeight: "200",
+              color: getColor(wine.wineType),
             }}
           />
         ) : (
