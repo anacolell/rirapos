@@ -63,6 +63,25 @@ app.put("/sales/:saleId", async (req: Request, res: Response) => {
   }
 });
 
+app.get("/debug/check-sale/:id", async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    console.log("Debug check for sale ID:", id);
+
+    const sale = await Sale.findById(id);
+    const dbName = mongoose.connection.name; // database name
+
+    res.json({
+      database: dbName,
+      saleExists: !!sale,
+      sale,
+    });
+  } catch (error) {
+    console.error("Debug check error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 mongoose.connect(mongoUrl).then(() => {
   console.log(`listening on port ${process.env.PORT}`);
   app.listen(process.env.PORT);
