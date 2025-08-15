@@ -42,13 +42,32 @@ const EditDialog: React.FC<EditDialogProps> = ({
     setUpdatedSale(sale);
   };
 
+  // const handleConfirm = async () => {
+  //   try {
+  //     await updateSale(sale._id, updatedSale);
+  //     handleClose();
+  //     setSales((prevSales: Sale[]) =>
+  //       prevSales.map((saleItem) =>
+  //         saleItem._id === sale._id ? updatedSale : saleItem
+  //       )
+  //     );
+  //   } catch (error) {
+  //     console.error("Error updating sale:", (error as Error).message);
+  //   }
+  // };
   const handleConfirm = async () => {
     try {
-      await updateSale(sale._id, updatedSale);
+      console.log("Attempting to update sale with ID:", sale._id);
+      console.log("Payload being sent:", updatedSale);
+
+      const updated = await updateSale(sale._id, updatedSale);
+
+      console.log("Update response:", updated);
+
       handleClose();
       setSales((prevSales: Sale[]) =>
         prevSales.map((saleItem) =>
-          saleItem._id === sale._id ? updatedSale : saleItem
+          saleItem._id === sale._id ? updated : saleItem
         )
       );
     } catch (error) {
