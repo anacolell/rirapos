@@ -45,23 +45,24 @@ app.delete("/sales/:saleId", async (req: Request, res: Response) => {
   }
 });
 
-// app.put("/sales/:saleId", async (req: Request, res: Response) => {
-//   try {
-//     const saleId = req.params.saleId;
-//     const updatedSale = await Sale.findByIdAndUpdate(saleId, req.body, {
-//       new: true,
-//     });
+app.put("/sales/:saleId", async (req: Request, res: Response) => {
+  try {
+    const saleId = req.params.saleId;
+    const { _id, ...updateData } = req.body;
 
-//     if (!updatedSale) {
-//       return res.status(404).json({ error: "Sale not found" });
-//     }
+    const updatedSale = await Sale.findByIdAndUpdate(saleId, updateData, {
+      new: true,
+    });
+    if (!updatedSale) {
+      return res.status(404).json({ error: "Sale not found" });
+    }
 
-//     res.json(updatedSale);
-//   } catch (error) {
-//     console.error("Error updating sale:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// });
+    res.json(updatedSale);
+  } catch (error) {
+    console.error("Error updating sale:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 app.put("/sales/:saleId", async (req: Request, res: Response) => {
   try {
