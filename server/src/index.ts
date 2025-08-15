@@ -64,29 +64,6 @@ app.put("/sales/:saleId", async (req: Request, res: Response) => {
   }
 });
 
-app.put("/sales/:saleId", async (req: Request, res: Response) => {
-  try {
-    const saleId = req.params.saleId;
-    console.log("Received update request for ID:", saleId);
-    console.log("Request body:", req.body);
-
-    const updatedSale = await Sale.findByIdAndUpdate(saleId, req.body, {
-      new: true,
-    });
-
-    if (!updatedSale) {
-      console.warn("Sale not found for ID:", saleId);
-      return res.status(404).json({ error: "Sale not found" });
-    }
-
-    console.log("Successfully updated sale:", updatedSale);
-    res.json(updatedSale);
-  } catch (error) {
-    console.error("Error updating sale:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
 mongoose.connect(mongoUrl).then(() => {
   console.log(`listening on port ${process.env.PORT}`);
   app.listen(process.env.PORT);
