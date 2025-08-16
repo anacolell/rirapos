@@ -2,6 +2,7 @@ import { Sale } from "../types/types";
 import { API_URL } from "./config";
 
 export const updateSale = async (saleId: string, updatedSale: Sale) => {
+  console.log("saleId", saleId, "updatedSale", updatedSale);
   const response = await fetch(`${API_URL}/sales/${saleId}`, {
     method: "PUT",
     headers: {

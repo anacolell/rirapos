@@ -67,9 +67,10 @@ app.delete("/sales/:saleId", async (req: Request, res: Response) => {
 app.put("/sales/:saleId", async (req: Request, res: Response) => {
   try {
     const saleId = req.params.saleId;
-
+    console.log("saleId", saleId);
     // Remove _id from payload to prevent MongoDB conflicts
     const { _id, ...updateData } = req.body;
+    console.log("_id", _id, "updateData", updateData);
 
     // Ensure saleId is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(saleId)) {
@@ -82,6 +83,8 @@ app.put("/sales/:saleId", async (req: Request, res: Response) => {
       updateData,
       { new: true }
     );
+
+    console.log("updatedSale", updatedSale);
 
     if (!updatedSale) {
       console.warn("Sale not found for ID:", saleId);
