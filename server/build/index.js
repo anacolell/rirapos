@@ -28,7 +28,7 @@ app.get("/sales", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return sales;
 }));
 app.post("/sales", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("Received request body:", req.body);
+    console.log("1 Received request body:", req.body);
     const newSale = new Sale_1.default(req.body);
     try {
         const createdSale = yield newSale.save();

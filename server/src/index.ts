@@ -12,7 +12,6 @@ app.use(express.json());
 
 const mongoUrl =
   process.env.MONGO_URL !== undefined ? process.env.MONGO_URL : "";
-console.log("Server starting... PUT route should be available");
 app.get("/sales", async (req: Request, res: Response) => {
   const sales = await Sale.find().sort({ date: -1 });
   res.json(sales);
