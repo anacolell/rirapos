@@ -64,20 +64,18 @@ app.delete("/sales/:saleId", async (req: Request, res: Response) => {
 //   }
 // });
 
-app.put("/sales/:saleId", async (req: Request, res: Response) => {
+app.patch("/sales/:saleId", async (req: Request, res: Response) => {
   try {
     const saleId = req.params.saleId;
     console.log("saleId", saleId);
-    // Remove _id from payload to prevent MongoDB conflicts
+
     const { _id, ...updateData } = req.body;
     console.log("_id", _id, "updateData", updateData);
 
-    // Ensure saleId is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(saleId)) {
       return res.status(400).json({ error: "Invalid sale ID" });
     }
 
-    // Use findOneAndUpdate with explicit _id query
     const updatedSale = await Sale.findOneAndUpdate(
       { _id: saleId },
       updateData,
@@ -91,7 +89,6 @@ app.put("/sales/:saleId", async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Sale not found" });
     }
 
-    console.log("Successfully updated sale:", updatedSale);
     res.json(updatedSale);
   } catch (error) {
     console.error("Error updating sale:", error);

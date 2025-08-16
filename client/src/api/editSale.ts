@@ -4,10 +4,8 @@ import { API_URL } from "./config";
 export const updateSale = async (saleId: string, updatedSale: Sale) => {
   console.log("saleId", saleId, "updatedSale", updatedSale);
   const response = await fetch(`${API_URL}/sales/${saleId}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updatedSale),
   });
 
