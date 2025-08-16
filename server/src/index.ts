@@ -20,7 +20,7 @@ app.get("/sales", async (req: Request, res: Response) => {
 });
 
 app.post("/sales", async (req: Request, res: Response) => {
-  console.log("Received request body:", req.body);
+  console.log("1 Received request body:", req.body);
 
   const newSale = new Sale(req.body);
 
