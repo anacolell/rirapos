@@ -64,35 +64,62 @@ app.delete("/sales/:saleId", async (req: Request, res: Response) => {
 //   }
 // });
 
-app.patch("/sales/:saleId", async (req: Request, res: Response) => {
+// app.patch("/sales/:saleId", async (req: Request, res: Response) => {
+//   try {
+//     const saleId = req.params.saleId;
+//     console.log("saleId", saleId);
+
+//     const { _id, ...updateData } = req.body;
+//     console.log("_id", _id, "updateData", updateData);
+
+//     if (!mongoose.Types.ObjectId.isValid(saleId)) {
+//       return res.status(400).json({ error: "Invalid sale ID" });
+//     }
+
+//     const updatedSale = await Sale.findOneAndUpdate(
+//       { _id: saleId },
+//       updateData,
+//       { new: true }
+//     );
+
+//     console.log("updatedSale", updatedSale);
+
+//     if (!updatedSale) {
+//       console.warn("Sale not found for ID:", saleId);
+//       return res.status(404).json({ error: "Sale not found" });
+//     }
+
+//     res.json(updatedSale);
+//   } catch (error) {
+//     console.error("Error updating sale:", error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
+
+app.put("/sales/:saleId", async (req: Request, res: Response) => {
   try {
     const saleId = req.params.saleId;
-    console.log("saleId", saleId);
-
-    const { _id, ...updateData } = req.body;
-    console.log("_id", _id, "updateData", updateData);
 
     if (!mongoose.Types.ObjectId.isValid(saleId)) {
       return res.status(400).json({ error: "Invalid sale ID" });
     }
 
-    const updatedSale = await Sale.findOneAndUpdate(
-      { _id: saleId },
-      updateData,
+    const { _id, ...updateData } = req.body;
+
+    const updatedSale = await Sale.findByIdAndUpdate(
+      saleId,
+      { $set: updateData },
       { new: true }
     );
-
-    console.log("updatedSale", updatedSale);
-
+    console.log("updatedSale server", updatedSale);
     if (!updatedSale) {
-      console.warn("Sale not found for ID:", saleId);
       return res.status(404).json({ error: "Sale not found" });
     }
 
-    res.json(updatedSale);
+    return res.status(200).json(updatedSale);
   } catch (error) {
     console.error("Error updating sale:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
