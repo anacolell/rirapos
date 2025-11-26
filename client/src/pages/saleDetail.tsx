@@ -24,6 +24,17 @@ export default function SaleDetail() {
     fetchSales();
   }, []);
 
+  const getWineType = (wine: Wine) => {
+    if (wine.title !== "Αιγιαλός" && wine.title !== "Δεσμός") {
+      return;
+    }
+    if (wine.wineType === "white") {
+      return "Λευκός";
+    } else {
+      return "Ερυθρός";
+    }
+  };
+
   return (
     <main className={styles.detailsPageWrapper}>
       <Link className={styles.goBackWrapper} to="/sales">
@@ -80,7 +91,7 @@ export default function SaleDetail() {
                       }}
                     >
                       <p className={styles.wineDetailsLeft}>
-                        {wine.title}
+                        {wine.title} {getWineType(wine)}
                         <span className={styles.productQuantity}>
                           x{wine.quantity}
                         </span>

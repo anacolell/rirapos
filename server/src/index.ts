@@ -12,7 +12,6 @@ app.use(express.json());
 
 const mongoUrl =
   process.env.MONGO_URL !== undefined ? process.env.MONGO_URL : "";
-
 app.get("/sales", async (req: Request, res: Response) => {
   const sales = await Sale.find().sort({ date: -1 });
   res.json(sales);
@@ -20,7 +19,7 @@ app.get("/sales", async (req: Request, res: Response) => {
 });
 
 app.post("/sales", async (req: Request, res: Response) => {
-  console.log("Received request body:", req.body);
+  console.log("1 Received request body:", req.body);
 
   const newSale = new Sale(req.body);
 
